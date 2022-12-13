@@ -32,4 +32,4 @@ add_executable(leic_am
         src/graph.cpp
         headers/graph.h
         headers/airport.h
-        src/airport.cpp)
+        src/airport.cpp headers/airline.h src/airline.cpp)
