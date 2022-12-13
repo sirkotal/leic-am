@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.23)
-project(leic_am C)
+project(leic_am)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 14)
 
-include_directories(.)
 include_directories(headers)
 
 # Doxygen Build
@@ -31,4 +30,6 @@ endif(DOXYGEN_FOUND)
 add_executable(leic_am
         src/main.cpp
         src/graph.cpp
-        headers/graph.h)
+        headers/graph.h
+        headers/airport.h
+        src/airport.cpp headers/airline.h src/airline.cpp)
