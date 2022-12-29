@@ -3,6 +3,7 @@
 #include "../headers/manager.h"
 
 #define airports "../air_data/airports.csv"
+#define flights "../air_data/flights.csv"
 
 using namespace std;
 
@@ -12,4 +13,5 @@ int main() {
     cout << "Hello World!" << endl;
     cout << porto.getCountry() << endl;
     man.buildAirports(airports);
+    man.buildFlights(flights);
 }

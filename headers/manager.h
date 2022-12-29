@@ -20,10 +20,11 @@ using namespace std;
 class Manager {
     public:
     void buildAirports(const string& filename);
-    int sized();
+    void buildFlights(const string& filename);
 
     private:
     unordered_map<int, Airport> airports;
+    list<Flight> flights;
 };
 
 #endif
