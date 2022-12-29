@@ -36,3 +36,31 @@ void Manager::buildAirports(const string& filename) {
         cout << "Error: The program was unable to open the file.";
     }
 }
+
+void Manager::buildAirlines(const string& filename) {
+    string code, name, callsign, country;
+
+    ifstream thefile(filename);
+
+    if (thefile.is_open())
+    {
+        string line;
+        getline(thefile, line);
+
+        while (!thefile.eof()) {
+            getline(thefile, code, ',');
+            getline(thefile, name, ',');
+            getline(thefile, callsign, ',');
+            getline(thefile, country, '\n');
+
+            airlines.emplace_back(code, name, callsign, country);
+        }
+        //cout << airlines.begin()->getName() << endl;
+        thefile.close();
+    }
+    else
+    {
+        cout << "Error: The program was unable to open the file.";
+    }
+}
+
