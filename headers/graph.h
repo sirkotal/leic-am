@@ -11,7 +11,7 @@ using namespace std;
 class Graph {
     struct Edge {
         int dest;   // Destination node
-        int weight; // An integer weight
+        int weight;  //An integer weight
     };
 
     struct Node {
