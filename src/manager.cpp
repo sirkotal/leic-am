@@ -64,3 +64,28 @@ void Manager::buildAirlines(const string& filename) {
     }
 }
 
+void Manager::buildFlights(const string& filename) {
+    string source, target, airline;
+
+    ifstream thefile(filename);
+
+    if (thefile.is_open())
+    {
+        string line;
+        getline(thefile, line);
+
+        while (!thefile.eof()) {
+            getline(thefile, source, ',');
+            getline(thefile, target, ',');
+            getline(thefile, airline, '\n');
+
+            flights.emplace_back(source, target, airline);
+        }
+        cout << flights.begin()->getSource() << endl;
+        thefile.close();
+    }
+    else
+    {
+        cout << "Error: The program was unable to open the file.";
+    }
+}    
