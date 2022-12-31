@@ -1,41 +1,50 @@
 #ifndef _GRAPH_H_
 #define _GRAPH_H_
 
+#include "airport.h"
+
 #include <list>
 #include <vector>
 #include <queue>
+#include <unordered_map>
+#include <unordered_set>
 #include <iostream>
 
 using namespace std;
 
 class Graph {
     struct Edge {
-        int dest;   // Destination node
-        int weight;  //An integer weight
+        string dest;   // Destination node/airport
+        string airline;  // Airline operating the said route
+        double distance; // distance between airports/nodes (weight)
     };
 
     struct Node {
+        Airport airport;
         list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
         bool visited;   // As the node been visited on a search?
-        int distance;
+        //int distance_to_source; ?
     };
 
     int n;              // Graph size (vertices are numbered from 1 to n)
     bool hasDir;        // false: undirected; true: directed
-    vector<Node> nodes; // The list of nodes being represented
+    unordered_map<string, Node> nodes; // hash table - { airport_code, node }
 
 public:
     // Constructor: nr nodes and direction (default: undirected)
-    Graph(int nodes, bool dir = false);
+    Graph(bool dir = false);
 
-    // Add edge from source to destination with a certain weight
-    void addEdge(int src, int dest, int weight = 1);
+    void addEdge(const string& source, const string& target, const string& airline); // Add an edge from an airport to another with their distance as the weight
 
-    // Depth-First Search: example implementation
-    void dfs(int v);
+    // void addNode(); // Add a node to the graph
 
-    // Breadth-First Search: example implementation
-    void bfs(int v);
+    void setUnvisited(); // Set all nodes to unvisited
+
+    void dfs(const string &airport_code);
+
+    void bfs(const string &airport_code);
+
+    void shortestPath(const string &airport_code);
 };
 
 #endif

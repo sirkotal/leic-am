@@ -1,14 +1,26 @@
 #include "graph.h"
+#include "haversine.h"
 
 // Constructor: nr nodes and direction (default: undirected)
-Graph::Graph(int num, bool dir) : n(num), hasDir(dir), nodes(num+1) {
+Graph::Graph(bool dir) {
+    this->hasDir = dir;
 }
 
 // Add edge from source to destination with a certain weight
-void Graph::addEdge(int src, int dest, int weight) {
-    if (src<1 || src>n || dest<1 || dest>n) return;
-    nodes[src].adj.push_back({dest, weight});
-    if (!hasDir) nodes[dest].adj.push_back({src, weight});
+void Graph::addEdge(const string& source, const string& target, const string& airline) {
+    auto src_airport = nodes.find(source);
+    auto tar_airport = nodes.find(target);
+
+    if (src_airport == nodes.end() || tar_airport == nodes.end() || src_airport == tar_airport) {
+        return;
+    }
+
+    double distance = haversine(src_airport->second.airport, tar_airport->second.airport);
+
+    src_airport->second.adj.push_back({target, airline, distance});
+
+    if(!this->hasDir)
+        tar_airport->second.adj.push_back({ source, airline, distance});
 }
 
 // Depth-First Search: example implementation
