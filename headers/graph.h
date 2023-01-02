@@ -36,13 +36,13 @@ public:
 
     void addEdge(const string& source, const string& target, const string& airline); // Add an edge from an airport to another with their distance as the weight
 
-    // void addNode(); // Add a node to the graph
+    void addNode(const string &code, const Airport &airport); // Add a node to the graph
 
-    void setUnvisited(); // Set all nodes to unvisited
+    void unvisit(); // Set all nodes to unvisited
 
-    void dfs(const string &airport_code);
+    void dfs(const string &code_airport);
 
-    void bfs(const string &airport_code);
+    void bfs(const string &code_airport);
 
     void shortestPath(const string &airport_code);
 };

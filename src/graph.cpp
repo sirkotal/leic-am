@@ -23,20 +23,31 @@ void Graph::addEdge(const string& source, const string& target, const string& ai
         tar_airport->second.adj.push_back({ source, airline, distance});
 }
 
-// Depth-First Search: example implementation
-void Graph::dfs(int v) {
-    // show node order
-    // cout << v << " ";
-    nodes[v].visited = true;
-    for (auto e : nodes[v].adj) {
-        int w = e.dest;
-        if (!nodes[w].visited)
-            dfs(w);
+void Graph::addNode(const string &code, const Airport &airport) {
+    nodes.insert({code, {airport, {}, false}});
+}
+
+void Graph::unvisit() {
+    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+        itr->second.visited = false;
+    }
+}
+
+// Depth-First Search: implementation
+void Graph::dfs(const string &code_airport) {
+    nodes[code_airport].visited = true;
+
+    for (auto itr = nodes[code_airport].adj.begin(); itr != nodes[code_airport].adj.end(); itr++) {
+        Node& target = nodes[itr->dest];
+
+        if (target.visited == false) {
+            dfs(itr->dest);
+        }
     }
 }
 
 // Breadth-First Search: example implementation
-void Graph::bfs(int v) {
+void Graph::bfs(const string &code_airport) {
     for (int i=1; i<=n; i++) nodes[i].visited = false;
     queue<int> q; // queue of unvisited nodes
     q.push(v);
