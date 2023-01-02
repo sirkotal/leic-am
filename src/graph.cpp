@@ -48,7 +48,7 @@ void Graph::dfs(const string &code_airport) {
 
 // Breadth-First Search: example implementation
 void Graph::bfs(const string &code_airport) {
-    for (int i=1; i<=n; i++) nodes[i].visited = false;
+    unvisit();
     queue<int> q; // queue of unvisited nodes
     q.push(v);
     nodes[v].visited = true;
@@ -66,4 +66,12 @@ void Graph::bfs(const string &code_airport) {
             }
         }
     }
+}
+
+Airport Graph::getAirport(const string &code) const {
+    return nodes.at(code).airport;
+}
+
+int Graph::numberOfFlights(const string &code) const {
+    return nodes.at(code).adj.size();
 }

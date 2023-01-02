@@ -45,6 +45,10 @@ public:
     void bfs(const string &code_airport);
 
     void shortestPath(const string &airport_code);
+
+    Airport getAirport(const string &code) const;
+
+    int numberOfFlights(const string &code) const;
 };
 
 #endif
