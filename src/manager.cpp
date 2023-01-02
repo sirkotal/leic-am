@@ -1,5 +1,20 @@
 #include "../headers/manager.h"
 
+#define airportsF "../air_data/airports.csv"
+#define flightsF "../air_data/flights.csv"
+#define airlinesF "../air_data/airlines.csv"
+
+Manager::Manager() {
+    this->airports = new Graph(true);
+    buildAirports(airportsF);
+    buildFlights(flightsF);
+    buildAirlines(airlinesF);
+}
+
+Manager::~Manager() {
+    delete airports;
+}
+
 void Manager::buildAirports(const string& filename) {
     string air_code, name, city, country, lat, lon;
 
@@ -48,7 +63,7 @@ void Manager::buildAirlines(const string& filename) {
             getline(thefile, callsign, ',');
             getline(thefile, country, '\n');
 
-            airlines.emplace_back(code, name, callsign, country);
+            airlines.insert({code, Airline(code, name, callsign, country)});
         }
         //cout << airlines.begin()->getName() << endl;
         thefile.close();
@@ -74,13 +89,16 @@ void Manager::buildFlights(const string& filename) {
             getline(thefile, target, ',');
             getline(thefile, airline, '\n');
 
-            flights.emplace_back(source, target, airline);
+            airports->addEdge(source, target, airline);
         }
-        cout << flights.begin()->getSource() << endl;
         thefile.close();
     }
     else
     {
         cout << "Error: The program was unable to open the file.";
     }
-}    
+}
+
+int Manager::getMinFlights(const string &source, const string &target) {
+    return airports->minFlights(source, target);
+}
