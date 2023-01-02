@@ -19,6 +19,8 @@ class Airline {
     string getCallsign() const;
     string getCountry() const;
 
+    bool operator==(const Airline &al2) const;
+
 
     private:
         string code;

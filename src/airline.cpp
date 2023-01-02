@@ -22,3 +22,7 @@ string Airline::getCallsign() const {
 string Airline::getCountry() const {
     return country;
 }
+
+bool Airline::operator==(const Airline &al2) const {
+    return this->code == al2.getCode();
+}
