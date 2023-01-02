@@ -3,6 +3,8 @@
 
 #include "airport.h"
 
+#include <iostream>
+#include <limits>
 #include <list>
 #include <vector>
 #include <queue>
@@ -45,7 +47,7 @@ public:
 
     void bfs(const string &code_airport);
 
-    void shortestPath(const string &airport_code);
+    void shortPath(const string &code_airport);
 
     Airport getAirport(const string &code) const;
 

@@ -1,6 +1,8 @@
 #include "graph.h"
 #include "haversine.h"
 
+#define MAX std::numeric_limits<double>::max()
+
 // Constructor: nr nodes and direction (default: undirected)
 Graph::Graph(bool dir) {
     this->hasDir = dir;
@@ -31,6 +33,10 @@ void Graph::unvisit() {
     for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
         itr->second.visited = false;
     }
+}
+
+void Graph::shortPath(const string &code_airport) {
+    unvisit();
 }
 
 // Depth-First Search: implementation
