@@ -99,6 +99,6 @@ void Manager::buildFlights(const string& filename) {
     }
 }
 
-int Manager::getMinFlights(const string &source, const string &target) {
+unsigned int Manager::getMinFlights(const string &source, const string &target) {
     return airports->minFlights(source, target);
 }

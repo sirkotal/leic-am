@@ -25,7 +25,7 @@ class Manager {
     void buildAirlines(const string& filename);
     void buildFlights(const string& filename);
 
-    int getMinFlights(const string& source, const string& target);
+    unsigned int getMinFlights(const string& source, const string& target);
 
     private:
     Graph* airports;
