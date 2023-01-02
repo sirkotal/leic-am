@@ -15,4 +15,5 @@ int main() {
     cout << porto.getCountry() << endl;
     cout << man.getMinFlights("CDG", "LGA") << endl;
     cout << man.getNumberOfFlights("OPO") << endl;
+    cout << man.getShortestPath("OPO", "LIS") << endl;
 }

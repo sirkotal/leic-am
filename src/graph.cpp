@@ -26,7 +26,7 @@ void Graph::addEdge(const string& source, const string& target, const string& ai
 }
 
 void Graph::addNode(const string &code, const Airport &airport) {
-    nodes.insert({code, {airport, {}, false, vector<Airport>()}});
+    nodes.insert({code, {airport, {}, false, vector<Airport>(), MAX}});
 }
 
 void Graph::unvisit() {
@@ -37,6 +37,44 @@ void Graph::unvisit() {
 
 void Graph::shortPath(const string &code_airport) {
     unvisit();
+
+    queue<pair<string, double>> q;
+    nodes[code_airport].distanceSRC = 0;
+    nodes[code_airport].fromSRC.push_back(nodes[code_airport].airport);
+
+    unvisit();
+
+    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+        if (itr->first != code_airport) {
+            itr->second.distanceSRC = MAX;
+            q.push({itr->first, itr->second.distanceSRC});
+        }
+        q.push({itr->first, itr->second.distanceSRC});
+    }
+
+    while (!q.empty()) {
+        pair<string, double> p = q.front();
+        q.pop();
+
+        Node& n1 = nodes[p.first];
+        for (auto &e: n1.adj) {
+            double val = e.distance + n1.distanceSRC;
+            Node& v = nodes[e.dest];
+            if (val < v.distanceSRC) {
+                v.fromSRC.clear();
+                for (Airport &airport: n1.fromSRC)
+                    v.fromSRC.push_back(airport);
+                v.fromSRC.push_back(v.airport);
+                v.distanceSRC = val;
+                q.push({e.dest, val});
+            }
+        }
+    }
+}
+
+double Graph::getShortestPath(const string &source, const string &target) {
+    shortPath(source);
+    return nodes.at(target).distanceSRC;
 }
 
 // Depth-First Search: implementation
