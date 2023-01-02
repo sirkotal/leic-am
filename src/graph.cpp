@@ -24,7 +24,7 @@ void Graph::addEdge(const string& source, const string& target, const string& ai
 }
 
 void Graph::addNode(const string &code, const Airport &airport) {
-    nodes.insert({code, {airport, {}, false}});
+    nodes.insert({code, {airport, {}, false, vector<Airport>()}});
 }
 
 void Graph::unvisit() {
@@ -47,7 +47,7 @@ void Graph::dfs(const string &code_airport) {
 }
 
 // Breadth-First Search: example implementation
-void Graph::bfs(const string &code_airport) {
+/*void Graph::bfs(const string &code_airport) {
     unvisit();
     queue<int> q; // queue of unvisited nodes
     q.push(v);
@@ -66,7 +66,7 @@ void Graph::bfs(const string &code_airport) {
             }
         }
     }
-}
+}*/
 
 Airport Graph::getAirport(const string &code) const {
     return nodes.at(code).airport;
