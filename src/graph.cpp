@@ -80,3 +80,8 @@ Airport Graph::getAirport(const string &code) const {
 int Graph::numberOfFlights(const string &code) const {
     return nodes.at(code).adj.size();
 }
+
+unsigned int Graph::minFlights(const string& source, const string& target) {
+    bfs(source);
+    return nodes[target].fromSRC.size() - 1;
+}

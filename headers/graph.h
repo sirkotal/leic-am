@@ -50,6 +50,8 @@ public:
     Airport getAirport(const string &code) const;
 
     int numberOfFlights(const string &code) const;
+
+    unsigned int minFlights(const string& source, const string& target);
 };
 
 #endif

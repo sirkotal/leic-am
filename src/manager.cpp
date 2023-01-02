@@ -22,6 +22,7 @@ void Manager::buildAirports(const string& filename) {
             double d_lon = stod(lon);
 
             airports->addNode(air_code, Airport(air_code, name, city, country, d_lat, d_lon));
+            cities.insert(city);
         }
         thefile.close();
     }
