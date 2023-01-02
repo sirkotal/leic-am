@@ -41,8 +41,7 @@ void Graph::shortPath(const string &code_airport) {
     queue<pair<string, double>> q;
     nodes[code_airport].distanceSRC = 0;
     nodes[code_airport].fromSRC.push_back(nodes[code_airport].airport);
-
-    unvisit();
+    
 
     for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
         if (itr->first != code_airport) {
