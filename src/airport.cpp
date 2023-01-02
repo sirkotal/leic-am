@@ -32,3 +32,7 @@ double Airport::getLatitude() const {
 double Airport::getLongitude() const {
     return lon;
 }
+
+bool Airport::operator==(const Airport &a2) const {
+    return air_code == a2.getAirCode();
+}

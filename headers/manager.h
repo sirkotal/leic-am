@@ -24,7 +24,7 @@ class Manager {
     void buildFlights(const string& filename);
 
     private:
-    Graph airports;
+    Graph* airports;
     unordered_set<string> cities;
     vector<Airline> airlines;
     list<Flight> flights;
