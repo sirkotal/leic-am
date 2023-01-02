@@ -5,8 +5,6 @@ void Manager::buildAirports(const string& filename) {
 
     ifstream thefile(filename);
 
-    int id = 1;
-
     if (thefile.is_open())
     {
         string line;
@@ -23,12 +21,8 @@ void Manager::buildAirports(const string& filename) {
             double d_lat = stod(lat);
             double d_lon = stod(lon);
 
-            Airport temp(air_code, name, city, country, d_lat, d_lon);
-            airports.emplace(id, temp);
-
-            id++;
+            airports->addNode(air_code, Airport(air_code, name, city, country, d_lat, d_lon));
         }
-        //cout << id << endl;
         thefile.close();
     }
     else

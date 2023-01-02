@@ -12,6 +12,7 @@ using namespace std;
 
 class Airport {
     public:
+    Airport() {};
     Airport(string air_code, string name, string city, string country, double lat, double lon);
 
     string getAirCode() const;
@@ -20,6 +21,8 @@ class Airport {
     string getCountry() const;
     double getLatitude() const;
     double getLongitude() const;
+
+    bool operator==(const Airport &a2) const;
 
 
     private:

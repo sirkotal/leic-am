@@ -22,8 +22,9 @@ class Graph {
     struct Node {
         Airport airport;
         list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
-        bool visited;   // As the node been visited on a search?
-        //int distance_to_source; ?
+        bool visited;   // Has the node been visited on a search?
+        vector<Airport> fromSRC; // Airports that were visited from the origin to this point (target)
+        /*double distanceSRC; // Distance to source airport (shortest path?)*/
     };
 
     int n;              // Graph size (vertices are numbered from 1 to n)
