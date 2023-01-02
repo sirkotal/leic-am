@@ -27,9 +27,9 @@ class Graph {
         /*double distanceSRC; // Distance to source airport (shortest path?)*/
     };
 
+    unordered_map<string, Node> nodes; // hash table - { airport_code, node }
     int n;              // Graph size (vertices are numbered from 1 to n)
     bool hasDir;        // false: undirected; true: directed
-    unordered_map<string, Node> nodes; // hash table - { airport_code, node }
 
 public:
     // Constructor: nr nodes and direction (default: undirected)
@@ -50,6 +50,8 @@ public:
     Airport getAirport(const string &code) const;
 
     int numberOfFlights(const string &code) const;
+
+    unsigned int minFlights(const string& source, const string& target);
 };
 
 #endif

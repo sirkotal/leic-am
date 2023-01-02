@@ -46,27 +46,32 @@ void Graph::dfs(const string &code_airport) {
     }
 }
 
-// Breadth-First Search: example implementation
-/*void Graph::bfs(const string &code_airport) {
+// Breadth-First Search: implementation
+void Graph::bfs(const string &code_airport) {
     unvisit();
-    queue<int> q; // queue of unvisited nodes
-    q.push(v);
-    nodes[v].visited = true;
-    nodes[v].distance = 0;
+    queue<string> q; // queue of unvisited nodes
+    q.push(code_airport);
+    nodes[code_airport].visited = true;
+    nodes[code_airport].fromSRC.push_back(nodes[code_airport].airport);
+
     while (!q.empty()) { // while there are still unvisited nodes
-        int u = q.front(); q.pop();
+        string u = q.front();
+        q.pop();
+        Node& node = nodes[u];
+
         // show node order
-        //cout << u << " ";
-        for (auto e : nodes[u].adj) {
-            int w = e.dest;
+        for (auto& e : node.adj) {
+            string w = e.dest;
             if (!nodes[w].visited) {
                 q.push(w);
                 nodes[w].visited = true;
-                nodes[w].distance = nodes[u].distance + 1;
+                for(auto &omega: node.fromSRC)   // Airports already in the vector
+                    nodes[w].fromSRC.push_back(omega);
+                nodes[w].fromSRC.push_back(nodes[w].airport);
             }
         }
     }
-}*/
+}
 
 Airport Graph::getAirport(const string &code) const {
     return nodes.at(code).airport;
@@ -74,4 +79,9 @@ Airport Graph::getAirport(const string &code) const {
 
 int Graph::numberOfFlights(const string &code) const {
     return nodes.at(code).adj.size();
+}
+
+unsigned int Graph::minFlights(const string& source, const string& target) {
+    bfs(source);
+    return nodes[target].fromSRC.size() - 1;
 }
