@@ -102,3 +102,7 @@ void Manager::buildFlights(const string& filename) {
 unsigned int Manager::getMinFlights(const string &source, const string &target) {
     return airports->minFlights(source, target);
 }
+
+int Manager::getNumberOfFlights(const std::string &code) const {
+    return airports->numberOfFlights(code);
+}

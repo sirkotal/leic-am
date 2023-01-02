@@ -35,7 +35,7 @@ public:
     // Constructor: nr nodes and direction (default: undirected)
     Graph(bool dir = false);
 
-    void addEdge(const string& source, const string& target, const string& airline); // Add an edge from an airport to another with their distance as the weight
+    void addEdge(const string &source, const string &target, const string &airline); // Add an edge from an airport to another with their distance as the weight
 
     void addNode(const string &code, const Airport &airport); // Add a node to the graph
 
@@ -51,7 +51,7 @@ public:
 
     int numberOfFlights(const string &code) const;
 
-    unsigned int minFlights(const string& source, const string& target);
+    unsigned int minFlights(const string &source, const string &target);
 };
 
 #endif

@@ -13,5 +13,6 @@ int main() {
     Airport porto("OPO", "Francisco Sá Carneiro", "Porto", "Portugal", 41.0, 11.0);
     cout << "Hello World!" << endl;
     cout << porto.getCountry() << endl;
-    cout << man.getMinFlights("CDG", "LGA");
+    cout << man.getMinFlights("CDG", "LGA") << endl;
+    cout << man.getNumberOfFlights("OPO") << endl;
 }
