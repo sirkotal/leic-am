@@ -35,10 +35,16 @@ void Graph::unvisit() {
     }
 }
 
+struct PriorityCompare {
+    bool operator() (pair<string, double> const &p1, pair<string, double> const &p2){
+        return p1.second > p2.second;
+    }
+};
+
 void Graph::shortPath(const string &code_airport) {
     unvisit();
 
-    priority_queue<pair<string, double>> q;
+    priority_queue<pair<string, double>, vector<pair<string, double>>, PriorityCompare> q;
     nodes[code_airport].distanceSRC = 0;
     nodes[code_airport].fromSRC.push_back(nodes[code_airport].airport);
 
