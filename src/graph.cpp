@@ -52,9 +52,10 @@ void Graph::shortPath(const string &code_airport) {
     for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
         if (itr->first != code_airport) {
             itr->second.distanceSRC = MAX;
+        }
+        else {
             q.push({itr->first, itr->second.distanceSRC});
         }
-        q.push({itr->first, itr->second.distanceSRC});
     }
 
     while (!q.empty()) {
