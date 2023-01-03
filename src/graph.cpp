@@ -38,7 +38,7 @@ void Graph::unvisit() {
 void Graph::shortPath(const string &code_airport) {
     unvisit();
 
-    queue<pair<string, double>> q;
+    priority_queue<pair<string, double>> q;
     nodes[code_airport].distanceSRC = 0;
     nodes[code_airport].fromSRC.push_back(nodes[code_airport].airport);
 
@@ -52,7 +52,7 @@ void Graph::shortPath(const string &code_airport) {
     }
 
     while (!q.empty()) {
-        pair<string, double> p = q.front();
+        pair<string, double> p = q.top();
         q.pop();
 
         Node& n1 = nodes[p.first];
