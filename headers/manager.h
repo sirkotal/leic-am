@@ -24,7 +24,7 @@ class Manager {
     void buildAirlines(const string& filename);
     void buildFlights(const string& filename);
 
-    void addMarkedAirline(const string &airline);
+    bool addMarkedAirline(const string &airline);
 
     bool checkAirport(const string &airport);
 

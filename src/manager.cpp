@@ -101,8 +101,17 @@ void Manager::buildFlights(const string& filename) {
     }
 }
 
-void Manager::addMarkedAirline(const string &airline) {
+bool Manager::addMarkedAirline(const string &airline) {
+    if (airports->getMarkedAirlines().find(airline) != airports->getMarkedAirlines().end()) {
+        return false;
+    }
+
+    if (airlines.find(airline) == airlines.end()) {
+        return false;
+    }
+
     airports->addMarkedAirline(airline);
+    return true;
 }
 
 unsigned int Manager::getMinFlights(const string &source, const string &target) {
@@ -171,4 +180,12 @@ int Manager::getNumberOfAirlinesFromAirport(const string &airport) {
 
 map<double,string> Manager::findAirportsInRadius(double latitude, double longitude, int radius) {
     return airports->findAirportsInRadius(latitude, longitude, radius);
+}
+
+bool Manager::checkAirport(const string &airport) {
+    return airports->checkAirport(airport);
+}
+
+bool Manager::checkAirline(const string &airline) {
+    return (airlines.find(airline) != airlines.end());
 }

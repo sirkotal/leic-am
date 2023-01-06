@@ -53,6 +53,8 @@ public:
 
     void clearMarkedAirlines();
 
+    unordered_set<string> getMarkedAirlines();
+
     void unvisit(); // Set all nodes to unvisited
 
     bool checkAirport(const string &airport);

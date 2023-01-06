@@ -44,10 +44,12 @@ void Graph::clearMarkedAirlines() {
     marked_airlines.clear();
 }
 
+unordered_set<string> Graph::getMarkedAirlines() {
+    return marked_airlines;
+}
+
 bool Graph::checkAirport(const string &airport) {
-    bool omega;
-    omega = nodes.find(airport) != nodes.end(),
-    return omega;
+    return nodes.find(airport) != nodes.end();
 }
 
 void Graph::unvisit() {
