@@ -154,7 +154,7 @@ vector<string> Graph::findAirportByCity(const string &city) {
 int Graph::numAirlinesFromAirport(const string &airport) {
     set<string> airlines;
 
-    for (auto e: nodes[airport].adj) {
+    for (const auto &e: nodes[airport].adj) {
         airlines.insert(e.airline);
     }
 
@@ -169,5 +169,44 @@ map<double,string> Graph::findAirportsInRadius(double latitude, double longitude
             airports.emplace(dist, node.first);
         }
     }
+    return airports;
+}
+
+set<string> Graph::getCitiesReached(const string &airport, const int &num) {
+    set<string> cities;
+    bfs(airport);
+
+    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+        Node &n = itr->second;
+
+        if (n.airport.getAirCode() == airport) {
+            continue;
+        }
+
+        if (n.fromSRC.size() - 1 <= num) {
+            cities.insert(n.airport.getCity());
+        }
+    }
+
+    return cities;
+}
+
+deque<Airport> Graph::getAirportsReached(const string &airport, const int &num) {
+    bfs(airport);
+
+    deque<Airport> airports;
+
+    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+        Node &n = itr->second;
+
+        if (n.airport.getAirCode() == airport) {
+            continue;
+        }
+
+        if (n.fromSRC.size() - 1 <= num) {
+            airports.push_back(n.airport);
+        }
+    }
+
     return airports;
 }
