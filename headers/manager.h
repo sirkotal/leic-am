@@ -24,6 +24,8 @@ class Manager {
     void buildAirlines(const string& filename);
     void buildFlights(const string& filename);
 
+    void addMarkedAirline(const string &airline);
+
     unsigned int getMinFlights(const string& source, const string& target);
     int getNumberOfFlights(const string &code) const;
 

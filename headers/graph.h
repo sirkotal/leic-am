@@ -47,6 +47,8 @@ public:
 
     void addNode(const string &code, const Airport &airport); // Add a node to the graph
 
+    void addMarkedAirline(const string &airline);
+
     void unvisit(); // Set all nodes to unvisited
 
     void dfs(const string &code_airport);

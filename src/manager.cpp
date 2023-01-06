@@ -101,6 +101,10 @@ void Manager::buildFlights(const string& filename) {
     }
 }
 
+void Manager::addMarkedAirline(const string &airline) {
+    airports->addMarkedAirline(airline);
+}
+
 unsigned int Manager::getMinFlights(const string &source, const string &target) {
     return airports->minFlights(source, target);
 }

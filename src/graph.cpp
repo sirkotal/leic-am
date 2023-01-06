@@ -29,6 +29,10 @@ void Graph::addNode(const string &code, const Airport &airport) {
     nodes.insert({code, {airport, {}, false, vector<Airport>(), MAX}});
 }
 
+void Graph::addMarkedAirline(const string &airline) {
+    marked_airlines.insert(airline);
+}
+
 void Graph::unvisit() {
     for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
         itr->second.visited = false;
