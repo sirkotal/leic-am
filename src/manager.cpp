@@ -4,6 +4,8 @@
 #define flightsF "../air_data/flights.csv"
 #define airlinesF "../air_data/airlines.csv"
 
+#define MAX std::numeric_limits<double>::max()
+
 Manager::Manager() {
     this->airports = new Graph(true);
     buildAirports(airportsF);
@@ -109,6 +111,24 @@ int Manager::getNumberOfFlights(const std::string &code) const {
 
 double Manager::getShortestPath(const string &source, const string &target) {
     return airports->getShortestPath(source, target);
+}
+
+double Manager::getShortestPathCity(const string &source, const string &target) {
+    vector<string> src_airports = airports->findAirportByCity(source);
+    vector<string> tar_airports = airports->findAirportByCity(target);
+
+    double shrt = MAX;
+
+    for (const string &s: src_airports) {
+        for (const string &t: tar_airports) {
+            double dist = getShortestPath(s, t);
+
+            if (dist < shrt) {
+                shrt = dist;
+            }
+        }
+    }
+    return shrt;
 }
 
 int Manager::getNumberOfAirlinesFromAirport(const string &airport) {

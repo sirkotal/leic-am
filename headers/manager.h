@@ -33,6 +33,8 @@ class Manager {
 
     map<double,string> findAirportsInRadius(double latitude, double longitude, int radius);
 
+    double getShortestPathCity(const string &source, const string &target);
+
     private:
     Graph* airports;
     unordered_set<string> cities;

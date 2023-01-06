@@ -37,6 +37,8 @@ class Graph {
     int n;              // Graph size (vertices are numbered from 1 to n)
     bool hasDir;        // false: undirected; true: directed
 
+    unordered_set<string> marked_airlines; // airlines we want to use
+
 public:
     // Constructor: nr nodes and direction (default: undirected)
     Graph(bool dir = false);

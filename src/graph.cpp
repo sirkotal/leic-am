@@ -68,6 +68,9 @@ void Graph::shortPath(const string &code_airport) {
 
         Node& n1 = nodes[p.first];
         for (auto &e: n1.adj) {
+            if (marked_airlines.find(e.airline) == marked_airlines.end() && !marked_airlines.empty()) {
+                continue;
+            }
             Node& v = nodes[e.dest];
             double val = e.distance + n1.distanceSRC;
 
@@ -128,6 +131,9 @@ void Graph::bfs(const string &code_airport) {
 
         // show node order
         for (auto& e : node.adj) {
+            if (marked_airlines.find(e.airline) == marked_airlines.end() && !marked_airlines.empty()) {
+                continue;
+            }
             string w = e.dest;
             if (!nodes[w].visited) {
                 q.push(w);
