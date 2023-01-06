@@ -131,6 +131,30 @@ double Manager::getShortestPathCity(const string &source, const string &target) 
     return shrt;
 }
 
+double Manager::getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon) {
+    int rad = 100;
+    map<double, string> src_airports = airports->findAirportsInRadius(src_lat, src_lon, rad);
+    map<double, string> tar_airports = airports->findAirportsInRadius(tar_lat, tar_lon, rad);
+
+    if (src_airports.empty() || tar_airports.empty()) {
+        cout << "No viable route available between these 2 locations!" << endl;
+        return -1;
+    }
+
+    double shrt = MAX;
+
+    for (auto src = src_airports.begin(); src != src_airports.end(); src++) {
+        for (auto tar = tar_airports.begin(); tar != tar_airports.end(); tar++) {
+            double dist = getShortestPath(src->second, tar->second);
+
+            if (dist < shrt) {
+                shrt = dist;
+            }
+        }
+    }
+    return shrt;
+}
+
 int Manager::getNumberOfAirlinesFromAirport(const string &airport) {
     return airports->numAirlinesFromAirport(airport);
 }

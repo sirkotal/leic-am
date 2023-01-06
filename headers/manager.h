@@ -35,6 +35,8 @@ class Manager {
 
     double getShortestPathCity(const string &source, const string &target);
 
+    double getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon);
+
     private:
     Graph* airports;
     unordered_set<string> cities;
