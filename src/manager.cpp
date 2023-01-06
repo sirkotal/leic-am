@@ -142,6 +142,8 @@ double Manager::getShortestPathLocal(const double &src_lat, const double &src_lo
     }
 
     double shrt = MAX;
+    string a1;
+    string a2;
 
     for (auto src = src_airports.begin(); src != src_airports.end(); src++) {
         for (auto tar = tar_airports.begin(); tar != tar_airports.end(); tar++) {
@@ -149,9 +151,13 @@ double Manager::getShortestPathLocal(const double &src_lat, const double &src_lo
 
             if (dist < shrt) {
                 shrt = dist;
+                a1 = src->second;
+                a2 = tar->second;
             }
         }
     }
+
+    cout << a1 << " -> " << a2 << endl;
     return shrt;
 }
 
