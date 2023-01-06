@@ -8,7 +8,9 @@ class Graph;
 #include <limits>
 #include <list>
 #include <vector>
+#include <set>
 #include <queue>
+#include <map>
 #include <unordered_map>
 #include <unordered_set>
 #include <iostream>
@@ -57,6 +59,12 @@ public:
     int numberOfFlights(const string &code) const;
 
     unsigned int minFlights(const string &source, const string &target);
+
+    vector<string> findAirportByCity(const string &city);
+
+    int numAirlinesFromAirport(const string &airport);
+
+    map<double,string> findAirportsInRadius(double latitude, double longitude, int radius);
 };
 
 #endif

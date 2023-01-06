@@ -84,7 +84,7 @@ void Graph::shortPath(const string &code_airport) {
 
 double Graph::getShortestPath(const string &source, const string &target) {
     shortPath(source);
-    return nodes.at(target).distanceSRC;
+    return nodes[target].distanceSRC;
 }
 
 // Depth-First Search: implementation
@@ -135,7 +135,39 @@ int Graph::numberOfFlights(const string &code) const {
     return nodes.at(code).adj.size();
 }
 
-unsigned int Graph::minFlights(const string& source, const string& target) {
+unsigned int Graph::minFlights(const string &source, const string &target) {
     bfs(source);
     return nodes[target].fromSRC.size() - 1;
+}
+
+vector<string> Graph::findAirportByCity(const string &city) {
+    vector<string> city_airports;
+    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+        if (itr->second.airport.getCity() == city) {
+            city_airports.push_back(itr->first);
+        }
+    }
+
+    return city_airports;
+}
+
+int Graph::numAirlinesFromAirport(const string &airport) {
+    set<string> airlines;
+
+    for (auto e: nodes[airport].adj) {
+        airlines.insert(e.airline);
+    }
+
+    return airlines.size();
+}
+
+map<double,string> Graph::findAirportsInRadius(double latitude, double longitude, int radius) {
+    map<double,string> airports;
+    for (const auto &node: nodes) {
+        double dist = haversine(latitude,longitude, node.second.airport.getLatitude(),node.second.airport.getLongitude());
+        if (dist <= radius) {
+            airports.emplace(dist, node.first);
+        }
+    }
+    return airports;
 }
