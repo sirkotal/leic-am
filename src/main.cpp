@@ -17,4 +17,5 @@ int main() {
     cout << man.getNumberOfFlights("OPO") << endl;
     cout << man.getShortestPath("CDG", "LGA") << endl;
     cout << man.getNumberOfAirlinesFromAirport("LIS") << endl;
+    cout << man.findAirportsInRadius(39.4140, -8.0750, 300).size() << endl;
 }

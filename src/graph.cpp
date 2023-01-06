@@ -164,8 +164,8 @@ int Graph::numAirlinesFromAirport(const string &airport) {
 map<double,string> Graph::findAirportsInRadius(double latitude, double longitude, int radius) {
     map<double,string> airports;
     for (const auto &node: nodes) {
-        double dist = haversine(latitude,longitude, node.second.airport.getLatitude(),node.second.airport.getLongitude());
-        if (dist <= radius) {
+        double dist = haversine(node.second.airport.getLatitude(),node.second.airport.getLongitude(), latitude,longitude);
+        if (dist < radius) {
             airports.emplace(dist, node.first);
         }
     }
