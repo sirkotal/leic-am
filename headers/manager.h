@@ -12,7 +12,6 @@
 #include <iomanip>
 #include "airport.h"
 #include "airline.h"
-#include "flight.h"
 #include "graph.h"
 
 using namespace std;
