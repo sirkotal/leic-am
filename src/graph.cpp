@@ -26,7 +26,7 @@ void Graph::addEdge(const string& source, const string& target, const string& ai
 }
 
 void Graph::addNode(const string &code, const Airport &airport) {
-    nodes.insert({code, {airport, {}, false, vector<Airport>()}});
+    nodes.insert({code, {airport, {}, false, vector<Airport>(), MAX}});
 }
 
 void Graph::unvisit() {
@@ -35,8 +35,56 @@ void Graph::unvisit() {
     }
 }
 
+struct PriorityCompare {
+    bool operator() (pair<string, double> const &p1, pair<string, double> const &p2){
+        return p1.second > p2.second;
+    }
+};
+
 void Graph::shortPath(const string &code_airport) {
     unvisit();
+
+    priority_queue<pair<string, double>, vector<pair<string, double>>, PriorityCompare> q;
+    nodes[code_airport].distanceSRC = 0;
+    nodes[code_airport].fromSRC.push_back(nodes[code_airport].airport);
+
+
+    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+        if (itr->first != code_airport) {
+            itr->second.distanceSRC = MAX;
+        }
+        else {
+            q.push({itr->first, itr->second.distanceSRC});
+        }
+    }
+
+    while (!q.empty()) {
+        pair<string, double> p = q.top();
+        q.pop();
+
+        Node& n1 = nodes[p.first];
+        for (auto &e: n1.adj) {
+            Node& v = nodes[e.dest];
+            double val = e.distance + n1.distanceSRC;
+
+            if (val < v.distanceSRC) {
+                v.fromSRC.clear();
+
+                for (Airport &airport: n1.fromSRC) {
+                    v.fromSRC.push_back(airport);
+                }
+                
+                v.fromSRC.push_back(v.airport);
+                v.distanceSRC = val;
+                q.push({e.dest, val});
+            }
+        }
+    }
+}
+
+double Graph::getShortestPath(const string &source, const string &target) {
+    shortPath(source);
+    return nodes[target].distanceSRC;
 }
 
 // Depth-First Search: implementation
@@ -87,7 +135,78 @@ int Graph::numberOfFlights(const string &code) const {
     return nodes.at(code).adj.size();
 }
 
-unsigned int Graph::minFlights(const string& source, const string& target) {
+unsigned int Graph::minFlights(const string &source, const string &target) {
     bfs(source);
     return nodes[target].fromSRC.size() - 1;
+}
+
+vector<string> Graph::findAirportByCity(const string &city) {
+    vector<string> city_airports;
+    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+        if (itr->second.airport.getCity() == city) {
+            city_airports.push_back(itr->first);
+        }
+    }
+
+    return city_airports;
+}
+
+int Graph::numAirlinesFromAirport(const string &airport) {
+    set<string> airlines;
+
+    for (const auto &e: nodes[airport].adj) {
+        airlines.insert(e.airline);
+    }
+
+    return airlines.size();
+}
+
+map<double,string> Graph::findAirportsInRadius(double latitude, double longitude, int radius) {
+    map<double,string> airports;
+    for (const auto &node: nodes) {
+        double dist = haversine(node.second.airport.getLatitude(),node.second.airport.getLongitude(), latitude,longitude);
+        if (dist < radius) {
+            airports.emplace(dist, node.first);
+        }
+    }
+    return airports;
+}
+
+set<string> Graph::getCitiesReached(const string &airport, const int &num) {
+    set<string> cities;
+    bfs(airport);
+
+    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+        Node &n = itr->second;
+
+        if (n.airport.getAirCode() == airport) {
+            continue;
+        }
+
+        if (n.fromSRC.size() - 1 <= num) {
+            cities.insert(n.airport.getCity());
+        }
+    }
+
+    return cities;
+}
+
+deque<Airport> Graph::getAirportsReached(const string &airport, const int &num) {
+    bfs(airport);
+
+    deque<Airport> airports;
+
+    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+        Node &n = itr->second;
+
+        if (n.airport.getAirCode() == airport) {
+            continue;
+        }
+
+        if (n.fromSRC.size() - 1 <= num) {
+            airports.push_back(n.airport);
+        }
+    }
+
+    return airports;
 }

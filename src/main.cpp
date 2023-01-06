@@ -15,4 +15,7 @@ int main() {
     cout << porto.getCountry() << endl;
     cout << man.getMinFlights("CDG", "LGA") << endl;
     cout << man.getNumberOfFlights("OPO") << endl;
+    cout << man.getShortestPath("CDG", "LGA") << endl;
+    cout << man.getNumberOfAirlinesFromAirport("LIS") << endl;
+    cout << man.findAirportsInRadius(39.4140, -8.0750, 200).size() << endl;
 }

@@ -28,6 +28,12 @@ class Manager {
     unsigned int getMinFlights(const string& source, const string& target);
     int getNumberOfFlights(const string &code) const;
 
+    double getShortestPath(const string &source, const string &target);
+
+    int getNumberOfAirlinesFromAirport(const string &airport);
+
+    map<double,string> findAirportsInRadius(double latitude, double longitude, int radius);
+
     private:
     Graph* airports;
     unordered_set<string> cities;

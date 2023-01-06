@@ -106,3 +106,15 @@ unsigned int Manager::getMinFlights(const string &source, const string &target) 
 int Manager::getNumberOfFlights(const std::string &code) const {
     return airports->numberOfFlights(code);
 }
+
+double Manager::getShortestPath(const string &source, const string &target) {
+    return airports->getShortestPath(source, target);
+}
+
+int Manager::getNumberOfAirlinesFromAirport(const string &airport) {
+    return airports->numAirlinesFromAirport(airport);
+}
+
+map<double,string> Manager::findAirportsInRadius(double latitude, double longitude, int radius) {
+    return airports->findAirportsInRadius(latitude, longitude, radius);
+}
