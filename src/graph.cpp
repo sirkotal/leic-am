@@ -44,6 +44,10 @@ struct PriorityCompare {
 void Graph::shortPath(const string &code_airport) {
     unvisit();
 
+    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+        itr->second.fromSRC.clear();
+    }
+
     priority_queue<pair<string, double>, vector<pair<string, double>>, PriorityCompare> q;
     nodes[code_airport].distanceSRC = 0;
     nodes[code_airport].fromSRC.push_back(nodes[code_airport].airport);
@@ -83,7 +87,16 @@ void Graph::shortPath(const string &code_airport) {
 }
 
 double Graph::getShortestPath(const string &source, const string &target) {
+    int counter = 1;
     shortPath(source);
+    for (const auto &a: nodes[target].fromSRC) {
+        cout << a.getAirCode();
+        if (counter != nodes[target].fromSRC.size()) {
+            cout << " -> ";
+        }
+        counter++;
+    }
+    cout << endl;
     return nodes[target].distanceSRC;
 }
 
