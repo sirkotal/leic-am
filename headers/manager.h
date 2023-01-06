@@ -26,6 +26,10 @@ class Manager {
 
     void addMarkedAirline(const string &airline);
 
+    bool checkAirport(const string &airport);
+
+    bool checkAirline(const string &airline);
+
     unsigned int getMinFlights(const string& source, const string& target);
     int getNumberOfFlights(const string &code) const;
 

@@ -33,6 +33,23 @@ void Graph::addMarkedAirline(const string &airline) {
     marked_airlines.insert(airline);
 }
 
+void Graph::removeMarkedAirline(const string &airline) {
+    if (marked_airlines.find(airline) == marked_airlines.end())
+        return;
+
+    marked_airlines.erase(airline);
+}
+
+void Graph::clearMarkedAirlines() {
+    marked_airlines.clear();
+}
+
+bool Graph::checkAirport(const string &airport) {
+    bool omega;
+    omega = nodes.find(airport) != nodes.end(),
+    return omega;
+}
+
 void Graph::unvisit() {
     for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
         itr->second.visited = false;

@@ -49,7 +49,13 @@ public:
 
     void addMarkedAirline(const string &airline);
 
+    void removeMarkedAirline(const string &airline);
+
+    void clearMarkedAirlines();
+
     void unvisit(); // Set all nodes to unvisited
+
+    bool checkAirport(const string &airport);
 
     void dfs(const string &code_airport);
 
