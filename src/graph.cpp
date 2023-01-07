@@ -115,18 +115,7 @@ void Graph::shortPath(const string &code_airport) {
 }
 
 double Graph::getShortestPath(const string &source, const string &target) {
-    int counter = 1;
     shortPath(source);
-    for (const auto &a: nodes[target].fromSRC) {
-        for (const auto &b: a) {
-            cout << b.first.getAirCode();
-            if (counter != nodes[target].fromSRC.size()) {
-                cout << " -> ";
-            }
-            counter++;
-        }
-        cout << endl;
-    }
     return nodes[target].distanceSRC;
 }
 
@@ -145,10 +134,10 @@ void Graph::dfs(const string &code_airport) {
 
 // Breadth-First Search: implementation
 void Graph::bfs(const string &code_airport) {
-    unvisit();
-
     queue<string> q; // queue of unvisited nodes
     q.push(code_airport);
+    unvisit();
+
     nodes[code_airport].visited = true;
     nodes[code_airport].fromSRC.push_back({{nodes[code_airport].airport, "" }});
 
@@ -166,27 +155,27 @@ void Graph::bfs(const string &code_airport) {
             if (!nodes[w].visited) {
                 q.push(w);
                 nodes[w].visited = true;
-                for (auto &omega: node.fromSRC) { // Airports already in the vector
+                for (auto omega: node.fromSRC) { // Airports already in the vector
                     omega.push_back({nodes[w].airport, e.airline});
                     nodes[w].fromSRC.push_back(omega);
                 }
             }
             else if (node.fromSRC.front().size() + 1 == nodes[w].fromSRC.front().size()) {
-                unsigned int sign = 1;
+                bool sign = true;
                 for (auto &n : nodes[w].fromSRC) {
                     auto itr = n.end();
                     advance(itr,-2);
                     if (itr->first == node.airport) {
-                        sign -= 1;
+                        sign = false;
                         break;
                     }
                 }
-                if (sign == 0) {
+                if (sign == false) {
                     continue;
                 }
-                for (auto &l: node.fromSRC) {
-                    l.push_back({nodes[w].airport,e.airline});
-                    nodes[w].fromSRC.push_back(l);
+                for (auto v: node.fromSRC) {
+                    v.push_back({nodes[w].airport,e.airline});
+                    nodes[w].fromSRC.push_back(v);
                 }
             }
         }
