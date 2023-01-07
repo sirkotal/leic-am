@@ -169,6 +169,11 @@ void Graph::bfs(const string &code_airport) {
     }
 }
 
+vector<Airport> Graph::test(const string &source, const string &target) {
+    bfs(source);
+    return nodes[target].fromSRC;
+}
+
 Airport Graph::getAirport(const string &code) const {
     return nodes.at(code).airport;
 }

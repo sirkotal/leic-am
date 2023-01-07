@@ -101,6 +101,10 @@ void Manager::buildFlights(const string& filename) {
     }
 }
 
+vector<Airport> Manager::test(const string &source, const string &target) {
+    return airports->test(source, target);
+}
+
 bool Manager::addMarkedAirline(const string &airline) {
     if (airports->getMarkedAirlines().find(airline) != airports->getMarkedAirlines().end()) {
         return false;
