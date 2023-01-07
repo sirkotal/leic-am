@@ -26,7 +26,7 @@ void Graph::addEdge(const string& source, const string& target, const string& ai
 }
 
 void Graph::addNode(const string &code, const Airport &airport) {
-    nodes.insert({code, {airport, {}, false, vector<Airport>(), MAX}});
+    nodes.insert({code, {airport, {}, false, list<vector<pair<Airport, string>>>(), MAX}});
 }
 
 void Graph::addMarkedAirline(const string &airline) {
@@ -70,7 +70,7 @@ void Graph::shortPath(const string &code_airport) {
 
     priority_queue<pair<string, double>, vector<pair<string, double>>, PriorityCompare> q;
     nodes[code_airport].distanceSRC = 0;
-    nodes[code_airport].fromSRC.push_back(nodes[code_airport].airport);
+    nodes[code_airport].fromSRC.push_back({{nodes[code_airport].airport,""}});
 
 
     for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
@@ -97,13 +97,18 @@ void Graph::shortPath(const string &code_airport) {
             if (val < v.distanceSRC) {
                 v.fromSRC.clear();
 
-                for (Airport &airport: n1.fromSRC) {
-                    v.fromSRC.push_back(airport);
+                for (auto &path: n1.fromSRC) {
+                    path.push_back({v.airport, e.airline});
+                    v.fromSRC.push_back(path);
                 }
-                
-                v.fromSRC.push_back(v.airport);
                 v.distanceSRC = val;
                 q.push({e.dest, val});
+            }
+            else if (val == v.distanceSRC && val < MAX) {
+                for(auto &route : n1.fromSRC) {
+                    route.push_back({v.airport,e.airline});
+                    v.fromSRC.push_back(route);
+                }
             }
         }
     }
@@ -113,13 +118,15 @@ double Graph::getShortestPath(const string &source, const string &target) {
     int counter = 1;
     shortPath(source);
     for (const auto &a: nodes[target].fromSRC) {
-        cout << a.getAirCode();
-        if (counter != nodes[target].fromSRC.size()) {
-            cout << " -> ";
+        for (const auto &b: a) {
+            cout << b.first.getAirCode();
+            if (counter != nodes[target].fromSRC.size()) {
+                cout << " -> ";
+            }
+            counter++;
         }
-        counter++;
+        cout << endl;
     }
-    cout << endl;
     return nodes[target].distanceSRC;
 }
 
@@ -143,7 +150,7 @@ void Graph::bfs(const string &code_airport) {
     queue<string> q; // queue of unvisited nodes
     q.push(code_airport);
     nodes[code_airport].visited = true;
-    nodes[code_airport].fromSRC.push_back(nodes[code_airport].airport);
+    nodes[code_airport].fromSRC.push_back({{nodes[code_airport].airport, "" }});
 
     while (!q.empty()) { // while there are still unvisited nodes
         string u = q.front();
@@ -159,15 +166,34 @@ void Graph::bfs(const string &code_airport) {
             if (!nodes[w].visited) {
                 q.push(w);
                 nodes[w].visited = true;
-                for(auto &omega: node.fromSRC)   // Airports already in the vector
+                for (auto &omega: node.fromSRC) { // Airports already in the vector
+                    omega.push_back({nodes[w].airport, e.airline});
                     nodes[w].fromSRC.push_back(omega);
-                nodes[w].fromSRC.push_back(nodes[w].airport);
+                }
+            }
+            else if (node.fromSRC.front().size() + 1 == nodes[w].fromSRC.front().size()) {
+                unsigned int sign = 1;
+                for (auto &n : nodes[w].fromSRC) {
+                    auto itr = n.end();
+                    advance(itr,-2);
+                    if (itr->first == node.airport) {
+                        sign -= 1;
+                        break;
+                    }
+                }
+                if (sign == 0) {
+                    continue;
+                }
+                for (auto &l: node.fromSRC) {
+                    l.push_back({nodes[w].airport,e.airline});
+                    nodes[w].fromSRC.push_back(l);
+                }
             }
         }
     }
 }
 
-vector<Airport> Graph::test(const string &source, const string &target) {
+list<vector<pair<Airport, string>>> Graph::test(const string &source, const string &target) {
     bfs(source);
     return nodes[target].fromSRC;
 }

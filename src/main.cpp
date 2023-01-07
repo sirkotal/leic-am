@@ -16,7 +16,9 @@ int main() {
     cout << man.findAirportsInRadius(39.4140, -8.0750, 200).size() << endl;
     cout << man.getShortestPathCity("New York", "Lisbon") << endl;
     cout << man.getShortestPathLocal(40.63691, -8.04331, 42.70467, -7.73570) << endl;
-    for (auto e: man.test("OPO", "VGO")) {
-        cout << e.getAirCode() << endl;
+    for (auto v: man.test("OPO", "VGO")) {
+        for (auto p: v) {
+            cout << p.first.getAirCode() << endl;
+        }
     }
 }

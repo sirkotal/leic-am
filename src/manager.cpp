@@ -101,7 +101,7 @@ void Manager::buildFlights(const string& filename) {
     }
 }
 
-vector<Airport> Manager::test(const string &source, const string &target) {
+list<vector<pair<Airport, string>>> Manager::test(const string &source, const string &target) {
     return airports->test(source, target);
 }
 
