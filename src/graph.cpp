@@ -104,6 +104,12 @@ void Graph::shortPath(const string &code_airport) {
                 v.distanceSRC = val;
                 q.push({e.dest, val});
             }
+            else if (val == v.distanceSRC && val < MAX) {
+                for (auto path : n1.fromSRC) {
+                    path.push_back({v.airport,e.airline});
+                    v.fromSRC.push_back(path);
+                }
+            }
         }
     }
 }
