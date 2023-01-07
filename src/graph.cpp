@@ -157,8 +157,8 @@ void Graph::bfs(const string &code_airport) {
             }
             else if (node.fromSRC.front().size() + 1 == nodes[w].fromSRC.front().size()) {
                 bool sign = true;
-                for (auto &n : nodes[w].fromSRC) {
-                    auto itr = n.end();
+                for (auto &v : nodes[w].fromSRC) {
+                    auto itr = v.end();
                     itr--;
                     itr--;
                     if (itr->first == node.airport) {
