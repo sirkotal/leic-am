@@ -63,7 +63,7 @@ public:
 
     void dfs(const string &code_airport);
 
-    void bfs(const string &airport_code);
+    void bfs(const string &code_airport);
 
     void shortPath(const string &code_airport);
 

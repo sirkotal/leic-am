@@ -218,7 +218,7 @@ int Graph::numAirlinesFromAirport(const string &airport) {
 
 unsigned int Graph::minFlights(const string &source, const string &target) {
     bfs(source);
-    return nodes[target].fromSRC.size() - 1;
+    return nodes[target].fromSRC.front().size() - 1;
 }
 
 string Graph::findAirport(const double &lat, const double &lon) {
