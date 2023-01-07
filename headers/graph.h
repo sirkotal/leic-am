@@ -49,6 +49,8 @@ public:
 
     list<vector<pair<Airport, string>>> getAirportsTraveled(const string &source, const string &target);
 
+    list<vector<pair<Airport, string>>> shortestPathAirports(const string &source, const string &target);
+
     void addMarkedAirline(const string &airline);
 
     void removeMarkedAirline(const string &airline);

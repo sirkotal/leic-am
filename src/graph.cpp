@@ -114,11 +114,6 @@ void Graph::shortPath(const string &code_airport) {
     }
 }
 
-double Graph::getShortestPath(const string &source, const string &target) {
-    shortPath(source);
-    return nodes[target].distanceSRC;
-}
-
 // Depth-First Search: implementation
 void Graph::dfs(const string &code_airport) {
     nodes[code_airport].visited = true;
@@ -164,8 +159,23 @@ void Graph::bfs(const string &code_airport) {
     }
 }
 
+double Graph::getShortestPath(const string &source, const string &target) {
+    shortPath(source);
+    return nodes[target].distanceSRC;
+}
+
+unsigned int Graph::minFlights(const string &source, const string &target) {
+    bfs(source);
+    return nodes[target].fromSRC.front().size() - 1;
+}
+
 list<vector<pair<Airport, string>>> Graph::getAirportsTraveled(const string &source, const string &target) {
     bfs(source);
+    return nodes[target].fromSRC;
+}
+
+list<vector<pair<Airport, string>>> Graph::shortestPathAirports(const string &source, const string &target) {
+    shortPath(source);
     return nodes[target].fromSRC;
 }
 
@@ -185,11 +195,6 @@ int Graph::numAirlinesFromAirport(const string &airport) {
     }
 
     return airlines.size();
-}
-
-unsigned int Graph::minFlights(const string &source, const string &target) {
-    bfs(source);
-    return nodes[target].fromSRC.front().size() - 1;
 }
 
 string Graph::findAirport(const double &lat, const double &lon) {
