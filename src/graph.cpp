@@ -55,6 +55,7 @@ bool Graph::checkAirport(const string &airport) {
 void Graph::unvisit() {
     for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
         itr->second.visited = false;
+        itr->second.fromSRC.clear();
     }
 }
 
@@ -66,10 +67,6 @@ struct PriorityCompare {
 
 void Graph::shortPath(const string &code_airport) {
     unvisit();
-
-    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
-        itr->second.fromSRC.clear();
-    }
 
     priority_queue<pair<string, double>, vector<pair<string, double>>, PriorityCompare> q;
     nodes[code_airport].distanceSRC = 0;
@@ -142,6 +139,7 @@ void Graph::dfs(const string &code_airport) {
 // Breadth-First Search: implementation
 void Graph::bfs(const string &code_airport) {
     unvisit();
+
     queue<string> q; // queue of unvisited nodes
     q.push(code_airport);
     nodes[code_airport].visited = true;
