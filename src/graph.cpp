@@ -177,9 +177,34 @@ int Graph::numberOfFlights(const string &code) const {
     return nodes.at(code).adj.size();
 }
 
+int Graph::numAirlinesFromAirport(const string &airport) {
+    set<string> airlines;
+
+    for (const auto &e: nodes[airport].adj) {
+        airlines.insert(e.airline);
+    }
+
+    return airlines.size();
+}
+
 unsigned int Graph::minFlights(const string &source, const string &target) {
     bfs(source);
     return nodes[target].fromSRC.size() - 1;
+}
+
+string Graph::findAirport(const double &lat, const double &lon) {
+    string air_code;
+    double l1 = MAX;
+    double l2 = MAX;
+    for (const auto &n: nodes) {
+        if (haversine(lat, lon, n.second.airport.getLatitude(), n.second.airport.getLongitude()) <
+        haversine(lat, lon, l1, l2)) {
+            air_code = n.second.airport.getAirCode();
+            l1 = n.second.airport.getLatitude();
+            l2 = n.second.airport.getLongitude();
+        }
+    }
+    return air_code;
 }
 
 vector<string> Graph::findAirportByCity(const string &city) {
@@ -191,16 +216,6 @@ vector<string> Graph::findAirportByCity(const string &city) {
     }
 
     return city_airports;
-}
-
-int Graph::numAirlinesFromAirport(const string &airport) {
-    set<string> airlines;
-
-    for (const auto &e: nodes[airport].adj) {
-        airlines.insert(e.airline);
-    }
-
-    return airlines.size();
 }
 
 map<double,string> Graph::findAirportsInRadius(double latitude, double longitude, int radius) {
@@ -251,4 +266,22 @@ deque<Airport> Graph::getAirportsReached(const string &airport, const int &num) 
     }
 
     return airports;
+}
+
+set<string> Graph::getCountriesReached(const string &airport, const int &num) {
+    set<std::string> countries;
+    bfs(airport);
+
+    for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
+        Node &n = itr->second;
+        if (n.airport.getAirCode() == airport) {
+            continue;
+        }
+
+        if (n.fromSRC.size() - 1 <= num) {
+            countries.insert(n.airport.getCountry());
+        }
+    }
+
+    return countries;
 }

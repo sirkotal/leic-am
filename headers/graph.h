@@ -67,11 +67,13 @@ public:
 
     double getShortestPath(const string &source, const string &target);
 
-    Airport getAirport(const string &code) const;
-
     int numberOfFlights(const string &code) const;
 
     unsigned int minFlights(const string &source, const string &target);
+
+    Airport getAirport(const string &code) const;
+
+    string findAirport(const double &lat, const double &lon);
 
     vector<string> findAirportByCity(const string &city);
 
@@ -82,6 +84,8 @@ public:
     set<string> getCitiesReached(const string &airport, const int &num);
 
     deque<Airport> getAirportsReached(const string &airport, const int &num);
+
+    set<string> getCountriesReached(const string &airport, const int &num);
 
 };
 
