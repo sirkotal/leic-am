@@ -119,7 +119,7 @@ map<double,string> Manager::findAirportsInRadius(double latitude, double longitu
     return airports->findAirportsInRadius(latitude, longitude, radius);
 }
 
-void Manager::displayAirtportsInTheSameNetwork(const string &code_airport){
+void Manager::displayAirportsInTheSameNetwork(const string &code_airport){
     for (auto &element : airports->getAirtportsInTheSameConnectedComponent(code_airport))
     {
         cout << element.second.airport.getName() << ";" << element.second.airport.getCity() << ";" << element.second.airport.getCountry() << endl;
