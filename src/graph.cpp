@@ -155,6 +155,25 @@ void Graph::bfs(const string &code_airport) {
                     nodes[w].fromSRC.push_back(omega);
                 }
             }
+            else if (node.fromSRC.front().size() + 1 == nodes[w].fromSRC.front().size()) {
+                bool sign = true;
+                for (auto &n : nodes[w].fromSRC) {
+                    auto itr = n.end();
+                    itr--;
+                    itr--;
+                    if (itr->first == node.airport) {
+                        sign = false;
+                        break;
+                    }
+                }
+                if (sign == false) {
+                    continue;
+                }
+                for (auto v: node.fromSRC) {
+                    v.push_back({nodes[w].airport,e.airline});
+                    nodes[w].fromSRC.push_back(v);
+                }
+            }
         }
     }
 }
