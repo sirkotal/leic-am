@@ -71,6 +71,7 @@ public:
 
     deque<Airport> getAirportsReached(const string &airport, const int &num);
 
+    unordered_map <string, Graph::Node> getAirtportsInTheSameConnectedComponent(const string &code_airport);
 };
 
 #endif
