@@ -33,6 +33,8 @@ class Manager {
 
     map<double,string> findAirportsInRadius(double latitude, double longitude, int radius);
 
+    void displayAirtportsInTheSameNetwork(const string &code_airport);
+
     private:
     Graph* airports;
     unordered_set<string> cities;
