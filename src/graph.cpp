@@ -74,11 +74,11 @@ void Graph::shortPath(const string &code_airport) {
 
 
     for (auto itr = nodes.begin(); itr != nodes.end(); itr++) {
-        if (itr->first != code_airport) {
-            itr->second.distanceSRC = MAX;
+        if (itr->first == code_airport) {
+            q.push({itr->first, itr->second.distanceSRC});
         }
         else {
-            q.push({itr->first, itr->second.distanceSRC});
+            itr->second.distanceSRC = MAX;
         }
     }
 
@@ -97,18 +97,12 @@ void Graph::shortPath(const string &code_airport) {
             if (val < v.distanceSRC) {
                 v.fromSRC.clear();
 
-                for (auto &path: n1.fromSRC) {
+                for (auto path: n1.fromSRC) {
                     path.push_back({v.airport, e.airline});
                     v.fromSRC.push_back(path);
                 }
                 v.distanceSRC = val;
                 q.push({e.dest, val});
-            }
-            else if (val == v.distanceSRC && val < MAX) {
-                for(auto &route : n1.fromSRC) {
-                    route.push_back({v.airport,e.airline});
-                    v.fromSRC.push_back(route);
-                }
             }
         }
     }
@@ -160,29 +154,11 @@ void Graph::bfs(const string &code_airport) {
                     nodes[w].fromSRC.push_back(omega);
                 }
             }
-            else if (node.fromSRC.front().size() + 1 == nodes[w].fromSRC.front().size()) {
-                bool sign = true;
-                for (auto &n : nodes[w].fromSRC) {
-                    auto itr = n.end();
-                    advance(itr,-2);
-                    if (itr->first == node.airport) {
-                        sign = false;
-                        break;
-                    }
-                }
-                if (sign == false) {
-                    continue;
-                }
-                for (auto v: node.fromSRC) {
-                    v.push_back({nodes[w].airport,e.airline});
-                    nodes[w].fromSRC.push_back(v);
-                }
-            }
         }
     }
 }
 
-list<vector<pair<Airport, string>>> Graph::test(const string &source, const string &target) {
+list<vector<pair<Airport, string>>> Graph::getAirportsTraveled(const string &source, const string &target) {
     bfs(source);
     return nodes[target].fromSRC;
 }

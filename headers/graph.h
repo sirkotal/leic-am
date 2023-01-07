@@ -47,7 +47,7 @@ public:
 
     void addNode(const string &code, const Airport &airport); // Add a node to the graph
 
-    list<vector<pair<Airport, string>>> test(const string &source, const string &target);
+    list<vector<pair<Airport, string>>> getAirportsTraveled(const string &source, const string &target);
 
     void addMarkedAirline(const string &airline);
 

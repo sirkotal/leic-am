@@ -24,7 +24,7 @@ class Manager {
     void buildAirlines(const string& filename);
     void buildFlights(const string& filename);
 
-    list<vector<pair<Airport, string>>> test(const string &source, const string &target);
+    list<vector<pair<Airport, string>>> getAirportsTraveled(const string &source, const string &target);
 
     bool addMarkedAirline(const string &airline);
 
