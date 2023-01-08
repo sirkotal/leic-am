@@ -242,12 +242,12 @@ vector<string> Graph::findAirportByCity(const string &city) {
     return city_airports;
 }
 
-map<double,string> Graph::findAirportsInRadius(double latitude, double longitude, int radius) {
-    map<double,string> airports;
+map<string,double> Graph::findAirportsInRadius(double latitude, double longitude, int radius) {
+    map<string,double> airports;
     for (const auto &node: nodes) {
         double dist = haversine(node.second.airport.getLatitude(),node.second.airport.getLongitude(), latitude,longitude);
         if (dist < radius) {
-            airports.emplace(dist, node.first);
+            airports.emplace(node.first, dist);
         }
     }
     return airports;

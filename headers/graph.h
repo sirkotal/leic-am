@@ -83,7 +83,7 @@ public:
 
     int numAirlinesFromAirport(const string &airport);
 
-    map<double,string> findAirportsInRadius(double latitude, double longitude, int radius);
+    map<string,double> findAirportsInRadius(double latitude, double longitude, int radius);
 
     set<string> getCitiesReached(const string &airport, const int &num);
 

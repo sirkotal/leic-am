@@ -28,6 +28,10 @@ class Manager {
 
     list<vector<pair<Airport, string>>> getAirportsTraveled(const string &source, const string &target);
 
+    list<vector<pair<Airport, string>>> getAirportsTraveledByCity(const string &source, const string &target);
+
+    list<vector<pair<Airport, string>>> getAirportsTraveledByLocal(double &src_lat, double &src_lon, double &tar_lat, double &tar_lon);
+
     bool addMarkedAirline(const string &airline);
 
     bool checkAirport(const string &airport);
@@ -42,7 +46,7 @@ class Manager {
 
     int getNumberOfAirlinesFromAirport(const string &airport);
 
-    map<double,string> findAirportsInRadius(double latitude, double longitude, int radius);
+    map<string,double> findAirportsInRadius(double latitude, double longitude, int radius);
 
     void displayAirportsInTheSameNetwork(const string &code_airport);
 

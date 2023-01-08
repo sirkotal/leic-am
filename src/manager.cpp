@@ -105,6 +105,49 @@ list<vector<pair<Airport, string>>> Manager::getAirportsTraveled(const string &s
     return airports->getAirportsTraveled(source, target);
 }
 
+list<vector<pair<Airport, string>>> Manager::getAirportsTraveledByCity(const string &source, const string &target) {
+    bool flag = true;
+    vector<string> src_cities = airports->findAirportByCity(source);
+    vector<string> tar_cities = airports->findAirportByCity(target);
+    list<vector<pair<Airport, string>>> result;
+    list<vector<pair<Airport, string>>> tmp;
+
+    for (string src: src_cities) {
+        for (string tar: tar_cities) {
+            tmp = airports->getAirportsTraveled(src, tar);
+            if (flag || result.front().size() > tmp.front().size()) {
+                flag=false;
+                result = tmp;
+            }
+            else if (result.front().size() == tmp.front().size()) {
+                result.insert(result.end(), tmp.begin(), tmp.end());
+            }
+        }
+    }
+
+    return result;
+}
+
+list<vector<pair<Airport, string>>> Manager::getAirportsTraveledByLocal(double &src_lat, double &src_lon, double &tar_lat, double &tar_lon) {
+    bool flag = true;
+    int radius = 100;
+    map<string,double> src_airports = airports->findAirportsInRadius(src_lat, src_lon, radius);
+    map<string,double> tar_airports = airports->findAirportsInRadius(tar_lat, tar_lon, radius);
+    list<vector<pair<Airport, string>>> result;
+    list<vector<pair<Airport, string>>> tmp;
+
+    for (auto src: src_airports) {
+        for (auto tar: tar_airports) {
+            tmp = airports->getAirportsTraveled(src.first, tar.first);
+            if (flag || result.front().size() >= tmp.front().size()) {
+                flag=false;
+                result = tmp;
+            }
+        }
+    }
+    return result;
+}
+
 bool Manager::addMarkedAirline(const string &airline) {
     if (airports->getMarkedAirlines().find(airline) != airports->getMarkedAirlines().end()) {
         return false;
@@ -150,8 +193,8 @@ double Manager::getShortestPathCity(const string &source, const string &target) 
 
 double Manager::getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon) {
     int rad = 100;
-    map<double, string> src_airports = airports->findAirportsInRadius(src_lat, src_lon, rad);
-    map<double, string> tar_airports = airports->findAirportsInRadius(tar_lat, tar_lon, rad);
+    map<string,double> src_airports = airports->findAirportsInRadius(src_lat, src_lon, rad);
+    map<string,double> tar_airports = airports->findAirportsInRadius(tar_lat, tar_lon, rad);
 
     if (src_airports.empty() || tar_airports.empty()) {
         cout << "No viable route available between these 2 locations!" << endl;
@@ -164,12 +207,12 @@ double Manager::getShortestPathLocal(const double &src_lat, const double &src_lo
 
     for (auto src = src_airports.begin(); src != src_airports.end(); src++) {
         for (auto tar = tar_airports.begin(); tar != tar_airports.end(); tar++) {
-            double dist = getShortestPath(src->second, tar->second);
+            double dist = getShortestPath(src->first, tar->first);
 
             if (dist < shrt) {
                 shrt = dist;
-                a1 = src->second;
-                a2 = tar->second;
+                a1 = src->first;
+                a2 = tar->first;
             }
         }
     }
@@ -182,7 +225,7 @@ int Manager::getNumberOfAirlinesFromAirport(const string &airport) {
     return airports->numAirlinesFromAirport(airport);
 }
 
-map<double,string> Manager::findAirportsInRadius(double latitude, double longitude, int radius) {
+map<string,double> Manager::findAirportsInRadius(double latitude, double longitude, int radius) {
     return airports->findAirportsInRadius(latitude, longitude, radius);
 }
 

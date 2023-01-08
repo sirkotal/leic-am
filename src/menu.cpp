@@ -53,6 +53,7 @@ void Menu::mainMenu() {
     cout << " ------------------------------------------------------------------------------------" << endl;
     cout << endl << "Please choose an option: ";
     cin >> main_select;
+    cout << endl;
 }
 
 void Menu::flightMenu() {
@@ -66,6 +67,7 @@ void Menu::flightMenu() {
     cout << " ------------------------------------------------------------------------------------" <<  std::endl;
     cout << endl << "Choose how you pretend to search your flight: ";
     cin >> select1;
+    cout << endl;
 }
 
 void Menu::flights() {
@@ -155,9 +157,95 @@ void Menu::flights() {
                 break;
             }
             case 2: {
+                string source, target;
+
+                cout << "Enter the source city: ";
+                cin >> source;
+                cout << endl;
+
+
+                cout << "Enter the target city: ";
+                cin >> target;
+                cout << endl;
+
+
+                list<vector<pair<Airport, string>>> result = manager.getAirportsTraveledByCity(source, target);
+
+                if (result.empty()) {
+                    cout << "There is no available route.\n";
+                }
+
+                for (const auto v: result) {
+                    int counter = 1;
+                    for (const auto a: v) {
+                        bool flag = false;
+                        if (a.second != "") {
+                            flag = true;
+                        }
+                        cout << a.first.getAirCode();
+
+                        if (flag) {
+                            cout << "[" + a.second + "]";
+                            flag = false;
+                        }
+                        if (counter != v.size()) {
+                            cout << " -> ";
+                        }
+                        counter++;
+                    }
+                    cout << endl;
+                }
+
                 break;
             }
             case 3: {
+                double src_lat, src_lon, tar_lat, tar_lon;
+
+                cout << "Enter the source latitude: ";
+                cin >> src_lat;
+                cout << endl;
+
+                cout << "Enter the source longitude: ";
+                cin >> src_lon;
+                cout << endl;
+
+                cout << "Enter the target latitude: ";
+                cin >> tar_lat;
+                cout << endl;
+
+
+                cout << "Enter the target longitude: ";
+                cin >> tar_lon;
+                cout << endl;
+
+
+                list<vector<pair<Airport, string>>> result = manager.getAirportsTraveledByLocal(src_lat, src_lon, tar_lat, tar_lon);
+
+                if (result.empty()) {
+                    cout << "There is no available route.\n";
+                }
+
+                for (const auto v: result) {
+                    int counter = 1;
+                    for (const auto a: v) {
+                        bool flag = false;
+                        if (a.second != "") {
+                            flag = true;
+                        }
+                        cout << a.first.getAirCode();
+
+                        if (flag) {
+                            cout << "[" + a.second + "]";
+                            flag = false;
+                        }
+                        if (counter != v.size()) {
+                            cout << " -> ";
+                        }
+                        counter++;
+                    }
+                    cout << endl;
+                }
+
                 break;
             }
         }
