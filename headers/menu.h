@@ -10,6 +10,20 @@
 
 using namespace std;
 
-class Menu {};
+class Menu {
+    Menu();
+
+    void start();
+
+    void mainMenu();
+
+    void flightMenu();
+
+    void airportMenu();
+
+    void airlineMenu();
+private:
+    Manager manager;
+};
 
 #endif

@@ -4,83 +4,53 @@
 #include "haversine.h"
 #include "../headers/airline.h"
 
+Menu::Menu(): manager(Manager()) {}
 
-void Menu()
-{
-    int select;
-    cout << "FLIGHT ASSISTANCE OPTIONS MENU:" << "\n";
-    cout << "\n";
-    cout << "[0] " << "Quit" << endl;
-    cout << "[1] " << "Display minimum number of flights between Airports" << endl;
-    cout << "[2] " << "Display the Number Of Flights" << endl;
-    cout << "[3] " << "Display the Shortest Path" << endl;
-    cout << "[4] " << "Display Number Of Air lines From Airport" << endl;
-    cout << "[5] " << "Display Airports In Radius" << endl;
+int main_select = -1;
+int select1 = -1;
+int select2 = -1;
+int select3 = -1;
 
-    cin >> select;
+void Menu::start() {
+    do {
+        select1 = -1;
+        select2 = -1;
+        select3 = -1;
+        mainMenu();
 
-    Manager::buildFlights(const string& filename);
-    Manager::buildAirlines(const string& filename);
-    Manager::buildAirports(const string& filename);
-    Manager::getMinFlights(const string &source, const string &target);
-    Manager::getNumberOfFlights(const std::string &code);
-    Manager::getShortestPath(const string &source, const string &target);
-    Manager::getNumberOfAirlinesFromAirport(const string &airport);
-    Manager::findAirportsInRadius(double latitude, double longitude, int radius);
+        switch(main_select) {
 
+            case 1: {
+                cout << endl;
+                flightMenu();
+                break;
+            }
 
-    switch(select)  //dependendo da escolha do utilizador
-    {
-        case 0:
-            cout << "Goodbye!" <<endl;
-            break;
-        case 1:
-            string source, target;
-            cout<< "Please type source Airport:" << endl;
-            cin >> source;
-            cout<< "Please type destination Airport:" << endl;
-            cin>> target;
-            Manager::getMinFlights(source, target);
-            break;
+            case 2: {
+                cout << endl;
+                airportMenu();
+                break;
+            }
 
-        case 2:
-            string code;
-            cout << "Please enter Airport code " << endl;
-            cin >> code;
+            case 3: {
+                cout << endl;
+                airlineMenu();
+                break;
+            }
+        }
 
-            Manager::getNumberOfFlights(code);
-            break;
+    } while(main_select != 0);
+}
 
-        case 3:
-            string source, target;
-            cout<< "Please type source Airport:" << endl;
-            cin >> source;
-            cout<< "Please type destination Airport:" << endl;
-            cin>> target;
-
-            Manager::getShortestPath(source, target);
-            break;
-
-        case 4:
-            string airport;
-            cout << "Please enter Airport name " << endl;
-            cin >> airport;
-
-            Manager::getNumberOfAirlinesFromAirport(airport);
-
-        case 5:
-            double latitude, longitude;
-            int radius;
-
-            cout << "Please type the latitude " << endl;
-            cin >> latitude;
-            cout << "Please type the longitude " << endl;
-            cin >> longitude;
-            cout << "Please type the radius " << endl;
-            cin >> radius;
-
-            Manager::findAirportsInRadius(latitude, longitude, radius);
-    }
-
-    cout << "Goodbye!" << endl;
-};
+void Menu::mainMenu() {
+    cout << "_____________________________________________________________________________________" << endl;
+    cout << "|                                        MENU                                       |" << endl;
+    cout << "|    0. EXIT                                                                        |" << endl;
+    cout << "|    1. FLIGHTS                                                                     |" << endl;
+    cout << "|    2. AIRPORTS                                                                    |" << endl;
+    cout << "|    3. AIRLINES                                                                    |" << endl;
+    cout << "|                                                                                   |" << endl;
+    cout << " ------------------------------------------------------------------------------------" << endl;
+    cout << endl << "Please choose an option: ";
+    cin >> main_select;
+}
