@@ -16,6 +16,9 @@
 
 using namespace std;
 
+/**
+ * A class to help manage flights
+ */
 class Manager {
 public:
     /** Manager Default Constructor

@@ -10,6 +10,10 @@
 
 using namespace std;
 
+/**
+ * A class that represents an airport
+ */
+
 class Airport {
     public:
     /** Airport default constructor
