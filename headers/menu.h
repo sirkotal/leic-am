@@ -10,6 +10,9 @@
 
 using namespace std;
 
+/**
+ * A class to display user selected information through a menu
+ */
 class Menu {
 public:
     /** Menu default constructor
