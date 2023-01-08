@@ -76,13 +76,29 @@ public:
     */
     list<vector<pair<Airport, string>>> getAirportsTraveledByLocal(double &src_lat, double &src_lon, double &tar_lat, double &tar_lon);
 
+    /** Checks if the airport exists in the graph
+    * @param airport the airport's code
+    * @returns boolean value that indicates if the airport exists in the graph
+    */
     bool checkAirport(const string &airport);
 
+    /** Checks if the airline exists in the graph
+    * @param airport the airport's code
+    * @returns boolean value that indicates if the airline exists in the graph
+    */
     bool checkAirline(const string &airline);
 
+    /** Calculates the minimum number of flights between two airports
+    * @param source the source airport
+    * @param target the target airport
+    * @returns the minimum number of flights between two airports
+    */
     unsigned int getMinFlights(const string& source, const string& target);
 
-
+    /** Calculates the number of flights that depart from an airport
+    * @param code the airport's code
+    * @returns the number of flights that depart from the airport
+    */
     int getNumberOfFlights(const string &code) const;
 
     /** Calculates the number of airlines that operate from an airport
