@@ -91,6 +91,10 @@ public:
 
     set<string> getCountriesReached(const string &airport, const int &num);
 
+    set<string> getAirportsAtArrival(const string &airport);
+
+    set<string> getCitiesAtArrival(const string &airport);
+
 };
 
 #endif
