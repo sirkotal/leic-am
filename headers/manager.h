@@ -41,6 +41,8 @@ class Manager {
 
     map<double,string> findAirportsInRadius(double latitude, double longitude, int radius);
 
+    void displayAirportsInTheSameNetwork(const string &code_airport);
+
     double getShortestPathCity(const string &source, const string &target);
 
     double getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon);

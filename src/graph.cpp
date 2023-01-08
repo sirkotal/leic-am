@@ -330,3 +330,24 @@ set<string> Graph::getCitiesAtArrival(const string &airport) {
 
     return cities_arr;
 }
+
+unordered_map <string, Graph::Node> Graph::getAirtportsInTheSameConnectedComponent(const string &code_airport){
+    unordered_map <string, Graph::Node> result;
+
+    for (auto &element : nodes)
+    {
+        element.second.visited = false;
+    }
+
+    dfs(code_airport);
+
+    for (auto &element : nodes)
+    {
+        if (element.second.visited)
+        {
+            result[element.first] = element.second;
+        }
+    }
+
+    return result;
+}

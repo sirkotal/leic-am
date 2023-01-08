@@ -88,13 +88,14 @@ public:
     set<string> getCitiesReached(const string &airport, const int &num);
 
     deque<Airport> getAirportsReached(const string &airport, const int &num);
-
+    
     set<string> getCountriesReached(const string &airport, const int &num);
 
     set<string> getAirportsAtArrival(const string &airport);
 
     set<string> getCitiesAtArrival(const string &airport);
-
+    
+    unordered_map <string, Graph::Node> getAirtportsInTheSameConnectedComponent(const string &code_airport);
 };
 
 #endif
