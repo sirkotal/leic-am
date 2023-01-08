@@ -17,7 +17,7 @@
 using namespace std;
 
 class Manager {
-    public:
+public:
     /** Manager Default Constructor
     */
     Manager();
@@ -41,19 +41,39 @@ class Manager {
     */
     void buildFlights(const string& filename);
 
+    /** Gets the Airport
+    *
+    * @returns the Airport
+    */
     Airport getAirport(const string &code);
 
+    /** Gets the Airline
+    *
+    * @returns the Airline
+    */
     Airline getAirline(const string &code);
 
-    /** Gets the airports traveled between a source airport and a target airport
-    * @param source the source airport
-    * @param target the target airport
+    /** Gets the airports traveled from the path with minimum flights between a source airport and a target airport
+    * @param source the source airport's code
+    * @param target the target airport's code
     * @returns the list of airports traveled
     */
     list<vector<pair<Airport, string>>> getAirportsTraveled(const string &source, const string &target);
 
+    /** Gets the airports traveled from the path with minimum flights between a source city and a target city
+    * @param source the source city's name
+    * @param target the target airport
+    * @returns the list of airports traveled
+    */
     list<vector<pair<Airport, string>>> getAirportsTraveledByCity(const string &source, const string &target);
 
+    /** Gets the airports traveled from the path with minimum flights between a source local and a target local
+    * @param src_lat the source place's latitude
+    * @param src_lon the source place's longitude
+    * @param tar_lat the source place's latitude
+    * @param tar_lon the target place's longitude
+    * @returns the list of airports traveled
+    */
     list<vector<pair<Airport, string>>> getAirportsTraveledByLocal(double &src_lat, double &src_lon, double &tar_lat, double &tar_lon);
 
     bool checkAirport(const string &airport);
@@ -75,7 +95,7 @@ class Manager {
     * @param latitude the point's latitude
     * @param longitude the point's longitude
     * @param radius the radius in which we want to find the airports
-    * @return the map of airports in a certain radius of a specific point on Earth
+    * @returns the map of airports in a certain radius of a specific point on Earth
     */
     map<string,double> findAirportsInRadius(double latitude, double longitude, int radius);
 
@@ -152,7 +172,7 @@ class Manager {
     */
     set<string> getCountriesReached(const string &airport, const int &num);
 
-    private:
+private:
     Graph* airports; /**< The airport's graph*/
     unordered_set<string> cities; /**< The set of cities*/
     unordered_map<string, Airline> airlines; /**< The airlines' hashtable*/
