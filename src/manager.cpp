@@ -4,6 +4,8 @@
 #define flightsF "../air_data/flights.csv"
 #define airlinesF "../air_data/airlines.csv"
 
+#define MAX std::numeric_limits<double>::max()
+
 Manager::Manager() {
     this->airports = new Graph(true);
     buildAirports(airportsF);
@@ -99,6 +101,83 @@ void Manager::buildFlights(const string& filename) {
     }
 }
 
+list<vector<pair<Airport, string>>> Manager::getAirportsTraveled(const string &source, const string &target) {
+    return airports->getAirportsTraveled(source, target);
+}
+
+list<vector<pair<Airport, string>>> Manager::getAirportsTraveledByCity(const string &source, const string &target) {
+    bool flag = true;
+    vector<string> src_cities = airports->findAirportByCity(source);
+    vector<string> tar_cities = airports->findAirportByCity(target);
+    list<vector<pair<Airport, string>>> result;
+    list<vector<pair<Airport, string>>> tmp;
+
+    for (string src: src_cities) {
+        for (string tar: tar_cities) {
+            tmp = airports->getAirportsTraveled(src, tar);
+            if (flag || result.front().size() > tmp.front().size()) {
+                flag=false;
+                result = tmp;
+            }
+            else if (result.front().size() == tmp.front().size()) {
+                result.insert(result.end(), tmp.begin(), tmp.end());
+            }
+        }
+    }
+
+    return result;
+}
+
+list<vector<pair<Airport, string>>> Manager::getAirportsTraveledByLocal(double &src_lat, double &src_lon, double &tar_lat, double &tar_lon) {
+    bool flag = true;
+    int radius = 100;
+    map<string,double> src_airports = airports->findAirportsInRadius(src_lat, src_lon, radius);
+    map<string,double> tar_airports = airports->findAirportsInRadius(tar_lat, tar_lon, radius);
+    list<vector<pair<Airport, string>>> result;
+    list<vector<pair<Airport, string>>> tmp;
+
+    for (auto src: src_airports) {
+        for (auto tar: tar_airports) {
+            tmp = airports->getAirportsTraveled(src.first, tar.first);
+            if (flag || result.front().size() >= tmp.front().size()) {
+                flag=false;
+                result = tmp;
+            }
+        }
+    }
+    return result;
+}
+
+bool Manager::addMarkedAirline(const string &airline) {
+    if (airports->getMarkedAirlines().find(airline) != airports->getMarkedAirlines().end()) {
+        return false;
+    }
+
+    if (airlines.find(airline) == airlines.end()) {
+        return false;
+    }
+
+    airports->addMarkedAirline(airline);
+    return true;
+}
+
+bool Manager::removeMarkedAirline(const string &airline) {
+    if(airlines.find(airline) == airlines.end()) {
+        return false;
+    }
+
+    airports->removeMarkedAirline(airline);
+    return true;
+}
+
+void Manager::clearMarkedAirlines() {
+    airports->clearMarkedAirlines();
+}
+
+unordered_set<string> Manager::getMarkedAirlines() {
+    return airports->getMarkedAirlines();
+}
+
 unsigned int Manager::getMinFlights(const string &source, const string &target) {
     return airports->minFlights(source, target);
 }
@@ -111,10 +190,101 @@ double Manager::getShortestPath(const string &source, const string &target) {
     return airports->getShortestPath(source, target);
 }
 
+list<vector<pair<Airport, string>>> Manager::getShortestPathAirports(const string &source, const string &target) {
+    return airports->shortestPathAirports(source, target);
+}
+
+list<vector<pair<Airport, string>>> Manager::getShortestPathCity(const string &source, const string &target) {
+    vector<string> src_airports = airports->findAirportByCity(source);
+    vector<string> tar_airports = airports->findAirportByCity(target);
+    string src;
+    string tar;
+
+    double shrt = MAX;
+
+    for (const string &s: src_airports) {
+        for (const string &t: tar_airports) {
+            double dist = getShortestPath(s, t);
+
+            if (dist < shrt) {
+                shrt = dist;
+                src = s;
+                tar = t;
+            }
+        }
+    }
+
+    return getShortestPathAirports(src, tar);
+}
+
+list<vector<pair<Airport, string>>> Manager::getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon) {
+    int rad = 100;
+    map<string,double> src_airports = airports->findAirportsInRadius(src_lat, src_lon, rad);
+    map<string,double> tar_airports = airports->findAirportsInRadius(tar_lat, tar_lon, rad);
+
+    if (src_airports.empty() || tar_airports.empty()) {
+        cout << "No viable route available between these 2 locations!" << endl;
+        return list<vector<pair<Airport, string>>>();
+    }
+
+    double shrt = MAX;
+    string a1;
+    string a2;
+
+    for (auto src = src_airports.begin(); src != src_airports.end(); src++) {
+        for (auto tar = tar_airports.begin(); tar != tar_airports.end(); tar++) {
+            double dist = getShortestPath(src->first, tar->first);
+
+            if (dist < shrt) {
+                shrt = dist;
+                a1 = src->first;
+                a2 = tar->first;
+            }
+        }
+    }
+
+    return getShortestPathAirports(a1, a2);
+}
+
 int Manager::getNumberOfAirlinesFromAirport(const string &airport) {
     return airports->numAirlinesFromAirport(airport);
 }
 
-map<double,string> Manager::findAirportsInRadius(double latitude, double longitude, int radius) {
+map<string,double> Manager::findAirportsInRadius(double latitude, double longitude, int radius) {
     return airports->findAirportsInRadius(latitude, longitude, radius);
+}
+
+void Manager::displayAirportsInTheSameNetwork(const string &code_airport) {
+    for (auto &element: airports->getAirportsInTheSameConnectedComponent(code_airport)) {
+        cout << element.second.airport.getName() << "; " << element.second.airport.getCity() << "; "
+             << element.second.airport.getCountry() << endl;
+    }
+}
+
+bool Manager::checkAirport(const string &airport) {
+    return airports->checkAirport(airport);
+}
+
+bool Manager::checkAirline(const string &airline) {
+    return (airlines.find(airline) != airlines.end());
+}
+
+Airport Manager::getAirport(const string &code) {
+    return airports->getAirport(code);
+}
+
+Airline Manager::getAirline(const string &code) {
+    return airlines[code];
+}
+
+deque<Airport> Manager::getAirportsReached(const string &airport, const int &num) {
+    return airports->getAirportsReached(airport, num);
+}
+
+set<string> Manager::getCitiesReached(const std::string &airport, const int &num) {
+    return airports->getCitiesReached(airport, num);
+}
+
+set<string> Manager::getCountriesReached(const string &airport, const int &num) {
+    return airports->getCountriesReached(airport, num);
 }
