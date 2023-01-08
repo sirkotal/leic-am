@@ -24,6 +24,8 @@ public:
 
     void airportMenu();
 
+    void airports();
+
     void airlineMenu();
 
     void airlines();

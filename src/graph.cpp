@@ -264,7 +264,7 @@ set<string> Graph::getCitiesReached(const string &airport, const int &num) {
             continue;
         }
 
-        if (n.fromSRC.size() - 1 <= num) {
+        if (n.fromSRC.front().size() - 1 <= num) {
             cities.insert(n.airport.getCity());
         }
     }
@@ -284,7 +284,7 @@ deque<Airport> Graph::getAirportsReached(const string &airport, const int &num) 
             continue;
         }
 
-        if (n.fromSRC.size() - 1 <= num) {
+        if (n.fromSRC.front().size() - 1 <= num) {
             airports.push_back(n.airport);
         }
     }
@@ -302,7 +302,7 @@ set<string> Graph::getCountriesReached(const string &airport, const int &num) {
             continue;
         }
 
-        if (n.fromSRC.size() - 1 <= num) {
+        if (n.fromSRC.front().size() - 1 <= num) {
             countries.insert(n.airport.getCountry());
         }
     }

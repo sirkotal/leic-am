@@ -62,6 +62,12 @@ class Manager {
 
     unordered_set<string> getMarkedAirlines();
 
+    deque<Airport> getAirportsReached(const string &airport, const int &num);
+
+    set<string> getCitiesReached(const string &airport, const int &num);
+
+    set<string> getCountriesReached(const string &airport, const int &num);
+
     private:
     Graph* airports;
     unordered_set<string> cities;

@@ -29,7 +29,7 @@ void Menu::start() {
 
             case 2: {
                 cout << endl;
-                //airportMenu();
+                airports();
                 break;
             }
 
@@ -131,7 +131,8 @@ void Menu::flights() {
                 list<vector<pair<Airport, string>>> result = manager.getAirportsTraveled(source, target);
 
                 if (result.empty()) {
-                    cout << "There is no available route.\n";
+                    cout << "There is no available route." << endl;
+                    break;
                 }
 
                 for (const auto v: result) {
@@ -173,7 +174,8 @@ void Menu::flights() {
                 list<vector<pair<Airport, string>>> result = manager.getAirportsTraveledByCity(source, target);
 
                 if (result.empty()) {
-                    cout << "There is no available route.\n";
+                    cout << "There is no available route." << endl;
+                    break;
                 }
 
                 for (const auto v: result) {
@@ -223,7 +225,8 @@ void Menu::flights() {
                 list<vector<pair<Airport, string>>> result = manager.getAirportsTraveledByLocal(src_lat, src_lon, tar_lat, tar_lon);
 
                 if (result.empty()) {
-                    cout << "There is no available route.\n";
+                    cout << "There is no available route." << endl;
+                    break;
                 }
 
                 for (const auto v: result) {
@@ -252,6 +255,232 @@ void Menu::flights() {
         }
 
     } while(select1 != 0);
+}
+
+void Menu::airportMenu() {
+    cout << " ____________________________________________________________________________________" <<  std::endl;
+    cout << "|                                   AIRPORTS                                        |" <<  std::endl;
+    cout << "|    0. BACK                                                                        |" <<  std::endl;
+    cout << "|    1. INFO                                                                        |" <<  std::endl;
+    cout << "|    2. NUMBER OF FLIGHTS FROM AIRPORT                                              |" <<  std::endl;
+    cout << "|    3. NUMBER OF AIRLINES FROM AIRPORT                                             |" <<  std::endl;
+    cout << "|    4. AIRPORTS IN A CERTAIN RADIUS                                                |" <<  std::endl;
+    cout << "|    5. AIRPORTS IN THE SAME FLIGHT NETWORK                                         |" <<  std::endl;
+    cout << "|    6. AIRPORTS REACHABLE IN N FLIGHTS                                             |" <<  std::endl;
+    cout << "|    7. CITIES REACHABLE IN N FLIGHTS                                               |" <<  std::endl;
+    cout << "|    8. COUNTRIES REACHABLE IN N FLIGHTS                                            |" <<  std::endl;
+    cout << "|                                                                                   |" <<  std::endl;
+    cout << " ------------------------------------------------------------------------------------" <<  std::endl;
+    cout << endl << "Please choose an option: ";
+    cin >> select2;
+    cout << endl;
+}
+
+void Menu::airports() {
+    do {
+        airportMenu();
+
+        switch (select2) {
+
+            case 1: {
+                string code;
+                while (true) {
+                    cout << "Enter the airport's code: ";
+                    cin >> code;
+                    cout << endl;
+
+                    if (manager.checkAirport(code)) {
+                        Airport airport = manager.getAirport(code);
+                        cout << " ____________________________________________________________________________________" << std::endl;
+                        cout << "                                       INFO                                          " << std::endl;
+                        cout << "- Code: " + airport.getAirCode() << std::endl;
+                        cout << "- Name: " + airport.getName() << std::endl;
+                        cout << "- City: " + airport.getCity() << std::endl;
+                        cout << "- Country: " + airport.getCountry() << std::endl;
+                        cout << "- Latitude: " + to_string(airport.getLatitude()) << std::endl;
+                        cout << "- Longitude: " + to_string(airport.getLongitude()) << std::endl;
+                        cout << " ------------------------------------------------------------------------------------" << std::endl;
+
+                        break;
+                    } else {
+                        cout << "That airport doesn't exist!" << endl;
+                    }
+                }
+                break;
+            }
+            case 2: {
+                string code;
+                while (true) {
+                    cout << "Enter the airport's code: ";
+                    cin >> code;
+                    cout << endl;
+
+                    if (manager.checkAirport(code)) {
+                        cout << manager.getNumberOfFlights(code) << endl;
+                        break;
+                    }
+                    else {
+                        cout << "That airport doesn't exist!" << endl;
+                    }
+                }
+                break;
+            }
+
+            case 3: {
+                string code;
+                while (true) {
+                    cout << "Enter the airport's code: ";
+                    cin >> code;
+                    cout << endl;
+
+                    if (manager.checkAirport(code)) {
+                        cout << manager.getNumberOfAirlinesFromAirport(code) << endl;
+                        break;
+                    }
+                    else {
+                        cout << "That airport doesn't exist!" << endl;
+                    }
+                }
+                break;
+            }
+            case 4: {
+                double lat, lon;
+                int rad;
+                cout << "Enter the latitude: ";
+                cin >> lat;
+                cout << endl;
+                cout << "Enter the longitude: ";
+                cin >> lon;
+                cout << endl;
+                cout << "Enter the radius: ";
+                cin >> rad;
+                cout << endl;
+
+                map<string, double> res = manager.findAirportsInRadius(lat, lon, rad);
+
+                if (res.empty()) {
+                    cout << "There are no airports in that area!" << endl;
+                    break;
+                }
+
+                cout << " ____________________________________________________________________________________" << std::endl;
+                cout << "                                      AIRPORTS                                       " << std::endl;
+                for (auto itr = res.begin(); itr != res.end(); itr++) {
+                    cout << "- Code: " + itr->first << ", " << itr->second << " km" <<  std::endl;
+                }
+                cout << " ------------------------------------------------------------------------------------" << std::endl;
+
+                break;
+            }
+            case 5: {
+                string code;
+                while (true) {
+                    cout << "Enter the airport's code: ";
+                    cin >> code;
+                    cout << endl;
+
+                    if (manager.checkAirport(code)) {
+                        manager.displayAirportsInTheSameNetwork(code);
+                        break;
+                    }
+                    else {
+                        cout << "That airport doesn't exist!" << endl;
+                    }
+                }
+                break;
+            }
+            case 6: {
+                string code;
+                int num;
+                while (true) {
+                    cout << "Enter the airport's code: ";
+                    cin >> code;
+                    cout << endl;
+
+                    cout << "Enter the number of flights: ";
+                    cin >> num;
+                    cout << endl;
+
+                    if (manager.checkAirport(code)) {
+                        break;
+                    }
+                    else {
+                        cout << "That airport doesn't exist!" << endl;
+                    }
+                }
+                deque<Airport> res = manager.getAirportsReached(code, num);
+
+                cout << " ____________________________________________________________________________________" << std::endl;
+                cout << "                                      AIRPORTS                                       " << std::endl;
+                for (auto itr = res.begin(); itr != res.end(); itr++) {
+                    cout << "- " + itr->getName() << ", " << itr->getAirCode() << endl;
+                }
+                cout << " ------------------------------------------------------------------------------------" << std::endl;
+
+                break;
+            }
+            case 7: {
+                string code;
+                int num;
+                while (true) {
+                    cout << "Enter the airport's code: ";
+                    cin >> code;
+                    cout << endl;
+
+                    cout << "Enter the number of flights: ";
+                    cin >> num;
+                    cout << endl;
+
+                    if (manager.checkAirport(code)) {
+                        break;
+                    }
+                    else {
+                        cout << "That airport doesn't exist!" << endl;
+                    }
+                }
+                set<string> res = manager.getCitiesReached(code, num);
+
+                cout << " ____________________________________________________________________________________" << std::endl;
+                cout << "                                       CITIES                                        " << std::endl;
+                for (auto itr = res.begin(); itr != res.end(); itr++) {
+                    cout << "- " + *itr << endl;
+                }
+                cout << " ------------------------------------------------------------------------------------" << std::endl;
+
+                break;
+            }
+            case 8: {
+                string code;
+                int num;
+                while (true) {
+                    cout << "Enter the airport's code: ";
+                    cin >> code;
+                    cout << endl;
+
+                    cout << "Enter the number of flights: ";
+                    cin >> num;
+                    cout << endl;
+
+                    if (manager.checkAirport(code)) {
+                        break;
+                    }
+                    else {
+                        cout << "That airport doesn't exist!" << endl;
+                    }
+                }
+                set<string> res = manager.getCountriesReached(code, num);
+
+                cout << " ____________________________________________________________________________________" << std::endl;
+                cout << "                                    COUNTRIES                                        " << std::endl;
+                for (auto itr = res.begin(); itr != res.end(); itr++) {
+                    cout << "- " + *itr << endl;
+                }
+                cout << " ------------------------------------------------------------------------------------" << std::endl;
+
+                break;
+            }
+        }
+    } while (select2 != 0);
 }
 
 void Menu::airlineMenu() {

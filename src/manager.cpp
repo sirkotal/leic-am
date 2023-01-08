@@ -248,7 +248,7 @@ map<string,double> Manager::findAirportsInRadius(double latitude, double longitu
 
 void Manager::displayAirportsInTheSameNetwork(const string &code_airport) {
     for (auto &element: airports->getAirportsInTheSameConnectedComponent(code_airport)) {
-        cout << element.second.airport.getName() << ";" << element.second.airport.getCity() << ";"
+        cout << element.second.airport.getName() << "; " << element.second.airport.getCity() << "; "
              << element.second.airport.getCountry() << endl;
     }
 }
@@ -267,4 +267,16 @@ Airport Manager::getAirport(const string &code) {
 
 Airline Manager::getAirline(const string &code) {
     return airlines[code];
+}
+
+deque<Airport> Manager::getAirportsReached(const string &airport, const int &num) {
+    return airports->getAirportsReached(airport, num);
+}
+
+set<string> Manager::getCitiesReached(const std::string &airport, const int &num) {
+    return airports->getCitiesReached(airport, num);
+}
+
+set<string> Manager::getCountriesReached(const string &airport, const int &num) {
+    return airports->getCountriesReached(airport, num);
 }
