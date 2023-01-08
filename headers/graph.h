@@ -29,7 +29,7 @@ class Graph {
         Airport airport;
         list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
         bool visited;   // Has the node been visited on a search?
-        vector<Airport> fromSRC; // Airports that were visited from the origin to this point (target)
+        list<vector<pair<Airport, string>>> fromSRC; // Airports that were visited from the origin to this point (target)
         double distanceSRC; // Distance to source airport (shortest path?)
     };
 
@@ -47,7 +47,9 @@ public:
 
     void addNode(const string &code, const Airport &airport); // Add a node to the graph
 
-    vector<Airport> test(const string &source, const string &target);
+    list<vector<pair<Airport, string>>> getAirportsTraveled(const string &source, const string &target);
+
+    list<vector<pair<Airport, string>>> shortestPathAirports(const string &source, const string &target);
 
     void addMarkedAirline(const string &airline);
 
@@ -88,6 +90,10 @@ public:
     deque<Airport> getAirportsReached(const string &airport, const int &num);
 
     set<string> getCountriesReached(const string &airport, const int &num);
+
+    set<string> getAirportsAtArrival(const string &airport);
+
+    set<string> getCitiesAtArrival(const string &airport);
 
 };
 

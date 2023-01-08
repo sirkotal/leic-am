@@ -101,8 +101,8 @@ void Manager::buildFlights(const string& filename) {
     }
 }
 
-vector<Airport> Manager::test(const string &source, const string &target) {
-    return airports->test(source, target);
+list<vector<pair<Airport, string>>> Manager::getAirportsTraveled(const string &source, const string &target) {
+    return airports->getAirportsTraveled(source, target);
 }
 
 bool Manager::addMarkedAirline(const string &airline) {
