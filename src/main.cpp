@@ -1,11 +1,12 @@
 #include <bits/stdc++.h>
 #include "../headers/airport.h"
 #include "../headers/manager.h"
+#include "menu.h"
 
 using namespace std;
 
 int main() {
-    Manager man;
+    /*Manager man;
     Airport porto("OPO", "Francisco Sá Carneiro", "Porto", "Portugal", 41.0, 11.0);
     cout << "Hello World!" << endl;
     cout << porto.getCountry() << endl;
@@ -16,10 +17,13 @@ int main() {
     cout << man.findAirportsInRadius(39.4140, -8.0750, 200).size() << endl;
     man.displayAirportsInTheSameNetwork("ORY");
     cout << man.getShortestPathCity("New York", "Lisbon") << endl;
-    cout << man.getShortestPathLocal(40.63691, -8.04331, 42.70467, -7.73570) << endl;
+    cout << man.getShortestPathLocal(40.63691, -8.04331, 42.70467, -7.73570) << endl;*/
     /*for (auto v: man.test("OPO", "VGO")) {
         for (auto p: v) {
             cout << p.first.getAirCode() << endl;
         }
     }*/
+    Menu menu = Menu();
+    menu.start();
+    return 0;
 }

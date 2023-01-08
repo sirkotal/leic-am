@@ -24,6 +24,8 @@ class Manager {
     void buildAirlines(const string& filename);
     void buildFlights(const string& filename);
 
+    Airport getAirport(const string &code);
+
     list<vector<pair<Airport, string>>> getAirportsTraveled(const string &source, const string &target);
 
     bool addMarkedAirline(const string &airline);
@@ -33,6 +35,7 @@ class Manager {
     bool checkAirline(const string &airline);
 
     unsigned int getMinFlights(const string& source, const string& target);
+
     int getNumberOfFlights(const string &code) const;
 
     double getShortestPath(const string &source, const string &target);

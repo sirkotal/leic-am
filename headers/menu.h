@@ -11,6 +11,7 @@
 using namespace std;
 
 class Menu {
+public:
     Menu();
 
     void start();
@@ -18,6 +19,8 @@ class Menu {
     void mainMenu();
 
     void flightMenu();
+
+    void flights();
 
     void airportMenu();
 

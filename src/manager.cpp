@@ -200,3 +200,7 @@ bool Manager::checkAirport(const string &airport) {
 bool Manager::checkAirline(const string &airline) {
     return (airlines.find(airline) != airlines.end());
 }
+
+Airport Manager::getAirport(const string &code) {
+    return airports->getAirport(code);
+}
