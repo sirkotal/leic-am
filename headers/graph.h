@@ -78,10 +78,10 @@ public:
     void unvisit();
 
     /** Finds the shortest path between one source airport and another target airport
-     * @param source the source airport's code
-     * @param target the target airport's code
-     * @return the length of the shortest path between the two airports
-     */
+    * @param source the source airport's code
+    * @param target the target airport's code
+    * @return the length of the shortest path between the two airports
+    */
     double getShortestPath(const string &source, const string &target);
 
     /** Calculates the number of flights that depart from an airport
