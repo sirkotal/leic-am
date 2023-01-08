@@ -18,11 +18,27 @@ using namespace std;
 
 class Manager {
     public:
+    /** Manager Default Constructor
+    */
     Manager();
+
+    /** Manager Default Destructor
+    */
     ~Manager();
 
+    /** Initializes airport parameters with data from csv files
+    * @param filename the filename
+    */
     void buildAirports(const string& filename);
+
+    /** Initializes airline parameters with data from csv files
+    * @param filename the filename
+    */
     void buildAirlines(const string& filename);
+
+    /** Initializes flight parameters with data from csv files
+    * @param filename the filename
+    */
     void buildFlights(const string& filename);
 
     Airport getAirport(const string &code);
@@ -45,10 +61,22 @@ class Manager {
 
     int getNumberOfAirlinesFromAirport(const string &airport);
 
+    /** Finds the airports in a certain radius of a specific point on Earth
+    * @param latitude the point's latitude
+    * @param longitude the point's longitude
+    * @param radius the radius in which we want to find the airports
+    * @returns the map of airports in a certain radius of a specific point on Earth
+    */
     map<string,double> findAirportsInRadius(double latitude, double longitude, int radius);
 
+    /** Displays the airports in the same network of a certain airport
+    * @param code_airport the airport's code
+    */
     void displayAirportsInTheSameNetwork(const string &code_airport);
 
+    /** Gets the shortest path between a source airport and a target airport
+    * @param code_airport the airport's code
+    */
     double getShortestPath(const string &source, const string &target);
 
     list<vector<pair<Airport, string>>> getShortestPathAirports(const string &source, const string &target);
