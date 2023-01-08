@@ -25,6 +25,9 @@ public:
     void airportMenu();
 
     void airlineMenu();
+
+    void airlines();
+
 private:
     Manager manager;
 };

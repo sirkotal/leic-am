@@ -95,7 +95,7 @@ public:
 
     set<string> getCitiesAtArrival(const string &airport);
     
-    unordered_map <string, Graph::Node> getAirtportsInTheSameConnectedComponent(const string &code_airport);
+    unordered_map <string, Graph::Node> getAirportsInTheSameConnectedComponent(const string &code_airport);
 };
 
 #endif

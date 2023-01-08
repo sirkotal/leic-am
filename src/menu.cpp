@@ -1,6 +1,7 @@
 #include "../headers/menu.h"
 #include "../headers/airport.h"
 #include "graph.h"
+#include "airline.h"
 #include "haversine.h"
 #include "../headers/airline.h"
 
@@ -34,7 +35,7 @@ void Menu::start() {
 
             case 3: {
                 cout << endl;
-                //airlineMenu();
+                airlines();
                 break;
             }
         }
@@ -79,7 +80,7 @@ void Menu::flights() {
             case 1: {
                 string source, target;
                 while (true) {
-                    cout << "Enter the source airport code: ";
+                    cout << "Enter the source airport's code: ";
                     cin >> source;
                     cout << endl;
 
@@ -103,7 +104,7 @@ void Menu::flights() {
                 }
 
                 while (true) {
-                    cout << "Enter the target airport code: ";
+                    cout << "Enter the target airport's code: ";
                     cin >> target;
                     cout << endl;
 
@@ -251,4 +252,90 @@ void Menu::flights() {
         }
 
     } while(select1 != 0);
+}
+
+void Menu::airlineMenu() {
+    cout << " ____________________________________________________________________________________" <<  std::endl;
+    cout << "|                                   AIRLINES                                        |" <<  std::endl;
+    cout << "|    0. BACK                                                                        |" <<  std::endl;
+    cout << "|    1. INFO                                                                        |" <<  std::endl;
+    cout << "|    2. LIST MARKED AIRLINES                                                        |" <<  std::endl;
+    cout << "|    3. ADD MARKED AIRLINE                                                          |" <<  std::endl;
+    cout << "|    4. REMOVE MARKED AIRLINE                                                       |" <<  std::endl;
+    cout << "|    5. CLEAR MARKED AIRLINE                                                        |" <<  std::endl;
+    cout << "|                                                                                   |" <<  std::endl;
+    cout << " ------------------------------------------------------------------------------------" <<  std::endl;
+    cout << endl << "Please choose an option: ";
+    cin >> select3;
+    cout << endl;
+}
+
+void Menu::airlines() {
+    do {
+        airlineMenu();
+
+        switch(select3) {
+
+            case 1: {
+                string code;
+                cout << "Enter the airline's code: ";
+                cin >> code;
+
+                if (manager.checkAirline(code)) {
+                    Airline airline = manager.getAirline(code);
+                    cout << " ____________________________________________________________________________________" <<  std::endl;
+                    cout << "                                       INFO                                          " <<  std::endl;
+                    cout << "- Code: " + airline.getCode() <<  std::endl;
+                    cout << "- Name: " + airline.getName() <<  std::endl;
+                    cout << "- Callsign: " + airline.getCallsign() <<  std::endl;
+                    cout << "- Country: " + airline.getCountry()<<  std::endl;
+                    cout << " ------------------------------------------------------------------------------------" <<  std::endl;
+                }
+                break;
+            }
+            case 2: {
+                unordered_set<string> lst = manager.getMarkedAirlines();
+                cout << " ____________________________________________________________________________________" <<  std::endl;
+                cout << "                                     AIRLINES                                        " <<  std::endl;
+                for (auto itr = lst.begin(); itr != lst.end(); itr++) {
+                    cout << "- " + *itr << endl;
+                }
+                cout << " ------------------------------------------------------------------------------------" <<  std::endl;
+                break;
+            }
+            case 3: {
+                string code;
+                cout << "Enter the airline's code: ";
+                cin >> code;
+                bool flag = manager.addMarkedAirline(code);
+
+                if (flag) {
+                    cout << "Airline successfully added to the marked airlines' list." << endl;
+                }
+                else {
+                    cout << "Operation was unsuccessful." << endl;
+                }
+                break;
+            }
+            case 4: {
+                string code;
+                cout << "Enter the airline's code: ";
+                cin >> code;
+                bool flag = manager.removeMarkedAirline(code);
+
+                if (flag) {
+                    cout << "Airline successfully removed from the marked airlines' list." << endl;
+                }
+                else {
+                    cout << "Operation was unsuccessful." << endl;
+                }
+                break;
+            }
+            case 5: {
+                manager.clearMarkedAirlines();
+                break;
+            }
+        }
+
+    } while(select3 != 0);
 }

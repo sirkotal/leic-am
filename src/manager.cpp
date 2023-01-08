@@ -161,6 +161,23 @@ bool Manager::addMarkedAirline(const string &airline) {
     return true;
 }
 
+bool Manager::removeMarkedAirline(const string &airline) {
+    if(airlines.find(airline) == airlines.end()) {
+        return false;
+    }
+
+    airports->removeMarkedAirline(airline);
+    return true;
+}
+
+void Manager::clearMarkedAirlines() {
+    airports->clearMarkedAirlines();
+}
+
+unordered_set<string> Manager::getMarkedAirlines() {
+    return airports->getMarkedAirlines();
+}
+
 unsigned int Manager::getMinFlights(const string &source, const string &target) {
     return airports->minFlights(source, target);
 }
@@ -230,7 +247,7 @@ map<string,double> Manager::findAirportsInRadius(double latitude, double longitu
 }
 
 void Manager::displayAirportsInTheSameNetwork(const string &code_airport) {
-    for (auto &element: airports->getAirtportsInTheSameConnectedComponent(code_airport)) {
+    for (auto &element: airports->getAirportsInTheSameConnectedComponent(code_airport)) {
         cout << element.second.airport.getName() << ";" << element.second.airport.getCity() << ";"
              << element.second.airport.getCountry() << endl;
     }
@@ -246,4 +263,8 @@ bool Manager::checkAirline(const string &airline) {
 
 Airport Manager::getAirport(const string &code) {
     return airports->getAirport(code);
+}
+
+Airline Manager::getAirline(const string &code) {
+    return airlines[code];
 }

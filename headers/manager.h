@@ -26,13 +26,13 @@ class Manager {
 
     Airport getAirport(const string &code);
 
+    Airline getAirline(const string &code);
+
     list<vector<pair<Airport, string>>> getAirportsTraveled(const string &source, const string &target);
 
     list<vector<pair<Airport, string>>> getAirportsTraveledByCity(const string &source, const string &target);
 
     list<vector<pair<Airport, string>>> getAirportsTraveledByLocal(double &src_lat, double &src_lon, double &tar_lat, double &tar_lon);
-
-    bool addMarkedAirline(const string &airline);
 
     bool checkAirport(const string &airport);
 
@@ -53,6 +53,14 @@ class Manager {
     double getShortestPathCity(const string &source, const string &target);
 
     double getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon);
+
+    bool addMarkedAirline(const string &airline);
+
+    bool removeMarkedAirline(const string &airline);
+
+    void clearMarkedAirlines();
+
+    unordered_set<string> getMarkedAirlines();
 
     private:
     Graph* airports;

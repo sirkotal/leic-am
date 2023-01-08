@@ -1,5 +1,7 @@
 #include "../headers/airline.h"
 
+Airline::Airline() {}
+
 Airline::Airline(string code, string name, string callsign, string country) {
     this->code = code;
     this->name = name;

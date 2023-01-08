@@ -331,7 +331,7 @@ set<string> Graph::getCitiesAtArrival(const string &airport) {
     return cities_arr;
 }
 
-unordered_map <string, Graph::Node> Graph::getAirtportsInTheSameConnectedComponent(const string &code_airport){
+unordered_map <string, Graph::Node> Graph::getAirportsInTheSameConnectedComponent(const string &code_airport){
     unordered_map <string, Graph::Node> result;
 
     for (auto &element : nodes)
