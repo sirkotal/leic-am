@@ -316,7 +316,7 @@ void Menu::airports() {
                     cout << endl;
 
                     if (manager.checkAirport(code)) {
-                        cout << manager.getNumberOfFlights(code) << endl;
+                        cout << "Number of flights from this airport: " << manager.getNumberOfFlights(code) << endl;
                         break;
                     }
                     else {
@@ -334,7 +334,7 @@ void Menu::airports() {
                     cout << endl;
 
                     if (manager.checkAirport(code)) {
-                        cout << manager.getNumberOfAirlinesFromAirport(code) << endl;
+                        cout << "Number of airlines operating from this airport: " << manager.getNumberOfAirlinesFromAirport(code) << endl;
                         break;
                     }
                     else {
@@ -413,7 +413,7 @@ void Menu::airports() {
                 cout << " ____________________________________________________________________________________" << std::endl;
                 cout << "                                      AIRPORTS                                       " << std::endl;
                 for (auto itr = res.begin(); itr != res.end(); itr++) {
-                    cout << "- " + itr->getName() << ", " << itr->getAirCode() << endl;
+                    cout << "- " + itr->getName() << ", " << itr->getAirCode() << ", " << itr->getCity() << endl;
                 }
                 cout << " ------------------------------------------------------------------------------------" << std::endl;
 
