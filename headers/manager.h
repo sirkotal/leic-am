@@ -65,7 +65,7 @@ class Manager {
     * @param latitude the point's latitude
     * @param longitude the point's longitude
     * @param radius the radius in which we want to find the airports
-    * @returns the map of airports in a certain radius of a specific point on Earth
+    * @return the map of airports in a certain radius of a specific point on Earth
     */
     map<string,double> findAirportsInRadius(double latitude, double longitude, int radius);
 
