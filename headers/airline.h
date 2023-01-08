@@ -26,25 +26,25 @@ class Airline {
 
     /** Gets the airline's code
     *
-    * @returns the airline's code
+    * @return the airline's code
     */
     string getCode() const;
 
     /** Gets the airline's name
     *
-    * @returns the airline's name
+    * @return the airline's name
     */
     string getName() const;
 
     /** Gets the airline's call sign
     *
-    * @returns the airline's call sign
+    * @return the airline's call sign
     */
     string getCallsign() const;
 
     /** Gets the airline's country
     *
-    * @returns the airline's country
+    * @return the airline's country
     */
     string getCountry() const;
 

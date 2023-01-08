@@ -10,7 +10,7 @@ using namespace std;
 /** Calculates the distance between two airports using Haversine's Formula
 * @param source the source airport
 * @param target the target airport
-* @returns the double value that corresponds to the distance between two airports
+* @return the double value that corresponds to the distance between two airports
 */
 double haversine(Airport &source, Airport &target);
 
@@ -19,7 +19,7 @@ double haversine(Airport &source, Airport &target);
 * @param long1 the first point's longitude
 * @param lat2 the second point's latitude
 * @param lat2 the second point's longitude
-* @returns the double value that corresponds to the distance between two points
+* @return the double value that corresponds to the distance between two points
 */
 double haversine(double lat1, double long1, double lat2, double long2);
 
