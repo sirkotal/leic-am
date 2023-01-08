@@ -20,6 +20,7 @@ class Manager {
     public:
     Manager();
     ~Manager();
+
     void buildAirports(const string& filename);
     void buildAirlines(const string& filename);
     void buildFlights(const string& filename);
@@ -42,15 +43,15 @@ class Manager {
 
     int getNumberOfFlights(const string &code) const;
 
-    double getShortestPath(const string &source, const string &target);
-
-    list<vector<pair<Airport, string>>> getShortestPathAirports(const string &source, const string &target);
-
     int getNumberOfAirlinesFromAirport(const string &airport);
 
     map<string,double> findAirportsInRadius(double latitude, double longitude, int radius);
 
     void displayAirportsInTheSameNetwork(const string &code_airport);
+
+    double getShortestPath(const string &source, const string &target);
+
+    list<vector<pair<Airport, string>>> getShortestPathAirports(const string &source, const string &target);
 
     list<vector<pair<Airport, string>>> getShortestPathCity(const string &source, const string &target);
 

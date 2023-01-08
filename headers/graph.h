@@ -47,6 +47,18 @@ public:
 
     void addNode(const string &code, const Airport &airport); // Add a node to the graph
 
+    void dfs(const string &code_airport);
+
+    void bfs(const string &code_airport);
+
+    void shortPath(const string &code_airport);
+
+    void unvisit(); // Set all nodes to unvisited
+
+    double getShortestPath(const string &source, const string &target);
+
+    int numberOfFlights(const string &code) const;
+
     list<vector<pair<Airport, string>>> getAirportsTraveled(const string &source, const string &target);
 
     list<vector<pair<Airport, string>>> shortestPathAirports(const string &source, const string &target);
@@ -59,19 +71,7 @@ public:
 
     unordered_set<string> getMarkedAirlines();
 
-    void unvisit(); // Set all nodes to unvisited
-
     bool checkAirport(const string &airport);
-
-    void dfs(const string &code_airport);
-
-    void bfs(const string &code_airport);
-
-    void shortPath(const string &code_airport);
-
-    double getShortestPath(const string &source, const string &target);
-
-    int numberOfFlights(const string &code) const;
 
     unsigned int minFlights(const string &source, const string &target);
 
