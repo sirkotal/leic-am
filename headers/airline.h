@@ -12,6 +12,7 @@ using namespace std;
 
 class Airline {
     public:
+    Airline();
     Airline(string code, string name, string callsign, string country);
 
     string getCode() const;

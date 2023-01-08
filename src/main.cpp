@@ -2,10 +2,6 @@
 #include "../headers/airport.h"
 #include "../headers/manager.h"
 
-#define airports "../air_data/airports.csv"
-#define flights "../air_data/flights.csv"
-#define airlines "../air_data/airlines.csv"
-
 using namespace std;
 
 int main() {
@@ -18,4 +14,12 @@ int main() {
     cout << man.getShortestPath("CDG", "LGA") << endl;
     cout << man.getNumberOfAirlinesFromAirport("LIS") << endl;
     cout << man.findAirportsInRadius(39.4140, -8.0750, 200).size() << endl;
+    man.displayAirportsInTheSameNetwork("ORY");
+    cout << man.getShortestPathCity("New York", "Lisbon") << endl;
+    cout << man.getShortestPathLocal(40.63691, -8.04331, 42.70467, -7.73570) << endl;
+    /*for (auto v: man.test("OPO", "VGO")) {
+        for (auto p: v) {
+            cout << p.first.getAirCode() << endl;
+        }
+    }*/
 }
