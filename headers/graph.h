@@ -18,6 +18,9 @@ class Graph;
 
 using namespace std;
 
+/**
+ * A class that represents the airports and flights network
+ */
 class Graph {
     struct Edge {
         string dest;   /**< The destination node/airport*/

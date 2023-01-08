@@ -9,7 +9,9 @@
 #include <iomanip>
 
 using namespace std;
-
+/**
+ * A class that represents an airline
+ */
 class Airline {
     public:
     /** Airline default constructor
