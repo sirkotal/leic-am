@@ -28,37 +28,37 @@ class Airport {
 
     /** Gets the airport's code
     *
-    * @returns the airport's code
+    * @return the airport's code
     */
     string getAirCode() const;
 
     /** Gets the airport's name
     *
-    * @returns the airport's name
+    * @return the airport's name
     */
     string getName() const;
 
     /** Gets the airport's city
     *
-    * @returns the airport's city
+    * @return the airport's city
     */
     string getCity() const;
 
     /** Gets the airport's country
     *
-    * @returns the airport's country
+    * @return the airport's country
     */
     string getCountry() const;
 
     /** Gets the airport's latitude
     *
-    * @returns the airport's latitude
+    * @return the airport's latitude
     */
     double getLatitude() const;
 
     /** Gets the airport's longitude
     *
-    * @returns the airport's longitude
+    * @return the airport's longitude
     */
     double getLongitude() const;
 

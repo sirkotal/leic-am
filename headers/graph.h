@@ -80,27 +80,27 @@ public:
     /** Finds the shortest path between one source airport and another target airport
      * @param source the source airport's code
      * @param target the target airport's code
-     * @returns the length of the shortest path between the two airports
+     * @return the length of the shortest path between the two airports
      */
     double getShortestPath(const string &source, const string &target);
 
     /** Calculates the number of flights that depart from an airport
      * @param code the airport's code
-     * @returns the number of flights that depart from an airport
+     * @return the number of flights that depart from an airport
      */
     int numberOfFlights(const string &code) const;
 
     /** Returns a list of all the possible routes with minimum number of flights between two airports
      * @param source the source airport's code
      * @param target the target airport's code
-     * @returns list of all the possible routes with minimum number of flights between the source and target airports
+     * @return list of all the possible routes with minimum number of flights between the source and target airports
      */
     list<vector<pair<Airport, string>>> getAirportsTraveled(const string &source, const string &target);
 
     /** Gives a list of airports that belong to shortest path between a source airport and a target airport
     * @param source the source airport's code
     * @param target the target airport's code
-    * @returns the list of airports that belong to shortest path between the source airport and the target airport
+    * @return the list of airports that belong to shortest path between the source airport and the target airport
     */
     list<vector<pair<Airport, string>>> shortestPathAirports(const string &source, const string &target);
 
@@ -119,45 +119,45 @@ public:
     void clearMarkedAirlines();
 
     /** Gets the marked airlines set
-    * @returns the marked airlines set
+    * @return the marked airlines set
     */
     unordered_set<string> getMarkedAirlines();
 
     /** Calculates the minimum number of flights between two airports
     * @param airport the airport's code
-    * @returns the minimum number of flights between two airports
+    * @return the minimum number of flights between two airports
     */
     bool checkAirport(const string &airport);
 
     /** Calculates the minimum number of flights between two airports
     * @param source the source airport's code
     * @param target the target airport's code
-    * @returns the minimum number of flights between two airports
+    * @return the minimum number of flights between two airports
     */
     unsigned int minFlights(const string &source, const string &target);
 
     /** Gets the airport with a certain code
     * @param code airport's code
-    * @returns the airport with a certain code
+    * @return the airport with a certain code
     */
     Airport getAirport(const string &code) const;
 
     /** Finds the nearest airport to a point on Earth
     * @param lat point's latitude
     * @param lon point's longitude
-    * @returns the nearest airport to that point on Earth
+    * @return the nearest airport to that point on Earth
     */
     string findAirport(const double &lat, const double &lon);
 
     /** Finds the airports near a city
     * @param city the city's name
-    * @returns a vector of airports near that city
+    * @return a vector of airports near that city
     */
     vector<string> findAirportByCity(const string &city);
 
     /** Calculates the number of airlines that operate from an airport
     * @param airport the airport
-    * @returns the number of airlines that operate from an airport
+    * @return the number of airlines that operate from an airport
     */
     int numAirlinesFromAirport(const string &airport);
 
@@ -165,35 +165,35 @@ public:
     * @param latitude the point's latitude
     * @param longitude the point's longitude
     * @param radius the radius in which we want to find the airports
-    * @returns the map of airports in a certain radius of a specific point on Earth
+    * @return the map of airports in a certain radius of a specific point on Earth
     */
     map<string,double> findAirportsInRadius(double latitude, double longitude, int radius);
 
     /** Gets the set of cities reached from a source airport in num flights
     * @param airport the source airport
     * @param num the number of flights
-    * @returns the set of cities reached from a source airport in num flights
+    * @return the set of cities reached from a source airport in num flights
     */
     set<string> getCitiesReached(const string &airport, const int &num);
 
     /** Gets the deque of airports reached from a source airport in num flights
     * @param airport the source airport
     * @param num the number of flights
-    * @returns the deque of airports reached from a source airport in num flights
+    * @return the deque of airports reached from a source airport in num flights
     */
     deque<Airport> getAirportsReached(const string &airport, const int &num);
 
     /** Gets the set of countries reached from a source airport in num flights
     * @param airport the source airport
     * @param num the number of flights
-    * @returns the set of cities reached from a source airport in num flights
+    * @return the set of cities reached from a source airport in num flights
     */
     set<string> getCountriesReached(const string &airport, const int &num);
 
     /** Gets the airports in the same connected component as a source airport
     * @param airport the source airport
     * @param num the number of flights
-    * @returns the set of cities reached from a source airport in num flights
+    * @return the set of cities reached from a source airport in num flights
     */
     unordered_map <string, Graph::Node> getAirportsInTheSameConnectedComponent(const string &code_airport);
 };
