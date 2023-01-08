@@ -18,9 +18,17 @@ public:
 
     void mainMenu();
 
+    void flights();
+
     void flightMenu();
 
-    void flights();
+    void flightNumMenu();
+
+    void flightsNum();
+
+    void flightDistMenu();
+
+    void flightsDist();
 
     void airportMenu();
 

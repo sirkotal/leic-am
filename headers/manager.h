@@ -44,15 +44,17 @@ class Manager {
 
     double getShortestPath(const string &source, const string &target);
 
+    list<vector<pair<Airport, string>>> getShortestPathAirports(const string &source, const string &target);
+
     int getNumberOfAirlinesFromAirport(const string &airport);
 
     map<string,double> findAirportsInRadius(double latitude, double longitude, int radius);
 
     void displayAirportsInTheSameNetwork(const string &code_airport);
 
-    double getShortestPathCity(const string &source, const string &target);
+    list<vector<pair<Airport, string>>> getShortestPathCity(const string &source, const string &target);
 
-    double getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon);
+    list<vector<pair<Airport, string>>> getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon);
 
     bool addMarkedAirline(const string &airline);
 

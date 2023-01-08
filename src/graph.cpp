@@ -310,27 +310,6 @@ set<string> Graph::getCountriesReached(const string &airport, const int &num) {
     return countries;
 }
 
-set<string> Graph::getAirportsAtArrival(const string &airport) {
-    set<string> airports_arr;
-
-    for (auto edg = nodes[airport].adj.begin(); edg != nodes[airport].adj.begin(); edg++) {
-        airports_arr.insert(edg->dest);
-    }
-
-    return airports_arr;
-}
-
-set<string> Graph::getCitiesAtArrival(const string &airport) {
-    set<std::string> cities_arr;
-
-    for (auto edg = nodes[airport].adj.begin(); edg != nodes[airport].adj.begin(); edg++) {
-        string city = nodes[edg->dest].airport.getCity();
-        cities_arr.insert(city);
-    }
-
-    return cities_arr;
-}
-
 unordered_map <string, Graph::Node> Graph::getAirportsInTheSameConnectedComponent(const string &code_airport){
     unordered_map <string, Graph::Node> result;
 

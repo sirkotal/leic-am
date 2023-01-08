@@ -90,10 +90,6 @@ public:
     deque<Airport> getAirportsReached(const string &airport, const int &num);
     
     set<string> getCountriesReached(const string &airport, const int &num);
-
-    set<string> getAirportsAtArrival(const string &airport);
-
-    set<string> getCitiesAtArrival(const string &airport);
     
     unordered_map <string, Graph::Node> getAirportsInTheSameConnectedComponent(const string &code_airport);
 };

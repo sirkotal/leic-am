@@ -190,9 +190,15 @@ double Manager::getShortestPath(const string &source, const string &target) {
     return airports->getShortestPath(source, target);
 }
 
-double Manager::getShortestPathCity(const string &source, const string &target) {
+list<vector<pair<Airport, string>>> Manager::getShortestPathAirports(const string &source, const string &target) {
+    return airports->shortestPathAirports(source, target);
+}
+
+list<vector<pair<Airport, string>>> Manager::getShortestPathCity(const string &source, const string &target) {
     vector<string> src_airports = airports->findAirportByCity(source);
     vector<string> tar_airports = airports->findAirportByCity(target);
+    string src;
+    string tar;
 
     double shrt = MAX;
 
@@ -202,20 +208,23 @@ double Manager::getShortestPathCity(const string &source, const string &target) 
 
             if (dist < shrt) {
                 shrt = dist;
+                src = s;
+                tar = t;
             }
         }
     }
-    return shrt;
+
+    return getShortestPathAirports(src, tar);
 }
 
-double Manager::getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon) {
+list<vector<pair<Airport, string>>> Manager::getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon) {
     int rad = 100;
     map<string,double> src_airports = airports->findAirportsInRadius(src_lat, src_lon, rad);
     map<string,double> tar_airports = airports->findAirportsInRadius(tar_lat, tar_lon, rad);
 
     if (src_airports.empty() || tar_airports.empty()) {
         cout << "No viable route available between these 2 locations!" << endl;
-        return -1;
+        return list<vector<pair<Airport, string>>>();
     }
 
     double shrt = MAX;
@@ -234,8 +243,7 @@ double Manager::getShortestPathLocal(const double &src_lat, const double &src_lo
         }
     }
 
-    cout << a1 << " -> " << a2 << endl;
-    return shrt;
+    return getShortestPathAirports(a1, a2);
 }
 
 int Manager::getNumberOfAirlinesFromAirport(const string &airport) {
