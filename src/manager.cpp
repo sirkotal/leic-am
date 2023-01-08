@@ -4,6 +4,8 @@
 #define flightsF "../air_data/flights.csv"
 #define airlinesF "../air_data/airlines.csv"
 
+#define MAX std::numeric_limits<double>::max()
+
 Manager::Manager() {
     this->airports = new Graph(true);
     buildAirports(airportsF);
@@ -99,6 +101,23 @@ void Manager::buildFlights(const string& filename) {
     }
 }
 
+list<vector<pair<Airport, string>>> Manager::getAirportsTraveled(const string &source, const string &target) {
+    return airports->getAirportsTraveled(source, target);
+}
+
+bool Manager::addMarkedAirline(const string &airline) {
+    if (airports->getMarkedAirlines().find(airline) != airports->getMarkedAirlines().end()) {
+        return false;
+    }
+
+    if (airlines.find(airline) == airlines.end()) {
+        return false;
+    }
+
+    airports->addMarkedAirline(airline);
+    return true;
+}
+
 unsigned int Manager::getMinFlights(const string &source, const string &target) {
     return airports->minFlights(source, target);
 }
@@ -109,6 +128,54 @@ int Manager::getNumberOfFlights(const std::string &code) const {
 
 double Manager::getShortestPath(const string &source, const string &target) {
     return airports->getShortestPath(source, target);
+}
+
+double Manager::getShortestPathCity(const string &source, const string &target) {
+    vector<string> src_airports = airports->findAirportByCity(source);
+    vector<string> tar_airports = airports->findAirportByCity(target);
+
+    double shrt = MAX;
+
+    for (const string &s: src_airports) {
+        for (const string &t: tar_airports) {
+            double dist = getShortestPath(s, t);
+
+            if (dist < shrt) {
+                shrt = dist;
+            }
+        }
+    }
+    return shrt;
+}
+
+double Manager::getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon) {
+    int rad = 100;
+    map<double, string> src_airports = airports->findAirportsInRadius(src_lat, src_lon, rad);
+    map<double, string> tar_airports = airports->findAirportsInRadius(tar_lat, tar_lon, rad);
+
+    if (src_airports.empty() || tar_airports.empty()) {
+        cout << "No viable route available between these 2 locations!" << endl;
+        return -1;
+    }
+
+    double shrt = MAX;
+    string a1;
+    string a2;
+
+    for (auto src = src_airports.begin(); src != src_airports.end(); src++) {
+        for (auto tar = tar_airports.begin(); tar != tar_airports.end(); tar++) {
+            double dist = getShortestPath(src->second, tar->second);
+
+            if (dist < shrt) {
+                shrt = dist;
+                a1 = src->second;
+                a2 = tar->second;
+            }
+        }
+    }
+
+    cout << a1 << " -> " << a2 << endl;
+    return shrt;
 }
 
 int Manager::getNumberOfAirlinesFromAirport(const string &airport) {
@@ -124,4 +191,11 @@ void Manager::displayAirportsInTheSameNetwork(const string &code_airport){
     {
         cout << element.second.airport.getName() << ";" << element.second.airport.getCity() << ";" << element.second.airport.getCountry() << endl;
     }
+
+bool Manager::checkAirport(const string &airport) {
+    return airports->checkAirport(airport);
+}
+
+bool Manager::checkAirline(const string &airline) {
+    return (airlines.find(airline) != airlines.end());
 }

@@ -24,6 +24,14 @@ class Manager {
     void buildAirlines(const string& filename);
     void buildFlights(const string& filename);
 
+    list<vector<pair<Airport, string>>> getAirportsTraveled(const string &source, const string &target);
+
+    bool addMarkedAirline(const string &airline);
+
+    bool checkAirport(const string &airport);
+
+    bool checkAirline(const string &airline);
+
     unsigned int getMinFlights(const string& source, const string& target);
     int getNumberOfFlights(const string &code) const;
 
@@ -34,6 +42,10 @@ class Manager {
     map<double,string> findAirportsInRadius(double latitude, double longitude, int radius);
 
     void displayAirportsInTheSameNetwork(const string &code_airport);
+
+    double getShortestPathCity(const string &source, const string &target);
+
+    double getShortestPathLocal(const double &src_lat, const double &src_lon, const double &tar_lat, const double &tar_lon);
 
     private:
     Graph* airports;
